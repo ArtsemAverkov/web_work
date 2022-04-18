@@ -31,9 +31,9 @@
 </tr>
 </thead>
 <tbody>
-<form action ="/user/come_in" method= "GET">
+<form action ="/user/create" method= "GET">
 
- <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+ <h1 class="h3 mb-3 fw-normal">Please Register</h1>
 <tr>
 
 <div class="form-floating">
@@ -51,7 +51,7 @@
 </from>
 </tbody>
 
-<a href = "/pages/user/Registracion.jsp">Registration</a>
+<a href = "/index.jsp">back</a>
 
 </table>
 </body>
