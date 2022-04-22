@@ -1,7 +1,6 @@
 package by.it.academy.services.user;
 
 import by.it.academy.entities.User;
-import by.it.academy.repositories.user.UserApiRepository;
 import by.it.academy.repositories.user.UserRepository;
 
 import java.util.List;
@@ -37,6 +36,11 @@ public class UserApiService implements UserService<User>{
     @Override
     public List<User> readAllUser() {
         return repository.readAllUser();
+    }
+
+    @Override
+    public User userType(User user) {
+        return repository.userType(user);
     }
 
 

@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebFilter(urlPatterns = "/user/come_in")
+
 public class RolesUserFilter implements Filter {
     private final List<User> users = new ArrayList<>();
     private final UserRepository<User> userUserRepository = new UserApiRepository(users);
@@ -28,8 +28,8 @@ public class RolesUserFilter implements Filter {
         String login = servletRequest.getParameter("login");
         String password = servletRequest.getParameter("password");
         User user = new User(login, password);
-        User read = userUserService.read(user);
-        if ("admin".equalsIgnoreCase(user.getLogin()) &&"admin".equalsIgnoreCase(user.getPassword())) {
+        User read = userUserService.userType(user);
+        if ("ADMIN".equalsIgnoreCase(read.getUserType())) {
                 RequestDispatcher requestDispatcher = servletRequest.getRequestDispatcher("/pages/shop/adminShop.jsp");
                 requestDispatcher.forward(servletRequest, servletResponse);
             } else {

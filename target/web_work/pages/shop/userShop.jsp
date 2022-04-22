@@ -9,6 +9,7 @@
 
 <body>
 <table>
+<a href = "/index.jsp">exit</a>
 <thead>
 <tr>
 
@@ -18,10 +19,10 @@
 <tbody>
 
 </tbody>
-
+<div class="form-floating">
 <a href = "/readAllProduct">Product</a>
-<a href = "/pages/product/Create_Product.jsp">Create Product</a>
-<a href = "/pages/product/Delete_Product.jsp">Delete Product</a>
+</div>
+
 </table>
 </body>
 </html>

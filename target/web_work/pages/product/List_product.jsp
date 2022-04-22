@@ -8,12 +8,13 @@
 
 <body>
 <table>
+<a href = "/pages/shop/userShop.jsp">userShop</a>||
+<a href = "/pages/shop/adminShop.jsp">adminShop</a>
 <thead>
 <tr>
 <th>name</th>
 <th>model</th>
 <th>price</th>
-
 </tr>
 </thead>
 <tbody>
@@ -21,13 +22,24 @@
 <c:forEach var = "product" items = "${products}">
 
 <tr>
-<td>${product.name} </td>
-<td>${product.model} </td>
-<td>${product.price} </td>
+<td>
+${product.name}
+</td>
+
+<td>
+${product.model}
+
+</td>
+
+<td>
+${product.price}
+
+</td>
+
 </tr>
 </c:forEach>
 </tbody>
-<a href = "/index.jsp">back</a>
+
 </table>
 </body>
 </html>

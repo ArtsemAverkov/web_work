@@ -1,6 +1,5 @@
 package by.it.academy.repositories.user;
 
-import by.it.academy.entities.Product;
 import by.it.academy.entities.User;
 import by.it.academy.repositories.connect.Connect;
 import by.it.academy.repositories.connect.ConnectMySQL;
@@ -112,6 +111,31 @@ public class UserApiRepository implements UserRepository<User> {
             e.printStackTrace();
         }
         return users;
+    }
+
+    @Override
+    public User userType(User user) {
+        User newUser = null;
+        try (Connection conn = connection.connect()) {
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM user1");
+            while (resultSet.next()) {
+                if (resultSet.getString("login").equals(user.getLogin()) && resultSet.getString("password").equals(user.getPassword())){
+                    String login = resultSet.getString("login");
+                    String password = resultSet.getString("password");
+                    String userType = resultSet.getString("userType");
+                    newUser = new User(login, password, userType);
+                    System.out.println(newUser);
+                    connection.close();
+                    return newUser;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return newUser;
     }
 }
 

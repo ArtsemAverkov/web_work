@@ -1,6 +1,5 @@
 package by.it.academy.controllrs.user;
 
-import by.it.academy.controllrs.product.UpdateProductController;
 import by.it.academy.entities.User;
 import by.it.academy.repositories.user.UserApiRepository;
 import by.it.academy.repositories.user.UserRepository;
@@ -14,10 +13,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-@WebServlet(urlPatterns = "/user/come_in")
+import java.util.Objects;
+
+@WebServlet(urlPatterns = {"/user/come_in"})
 public class ComeInUserController extends HttpServlet {
     private final Logger logger = Logger.getLogger(ComeInUserController.class);
     private final List<User> users = new ArrayList<>();
@@ -31,10 +33,17 @@ public class ComeInUserController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final String login = req.getParameter("login");
         final String password = req.getParameter("password");
+
         final User user = new User(login, password);
-        User read = userUserService.read(user);
+        User read = userUserService.userType(user);
         logger.info(read);
-            final RequestDispatcher requestDispatcher = req.getRequestDispatcher(USER_LIST_PATH);
+
+        String userType = read.getUserType();
+        if ((Objects.nonNull(req.getSession())) && Objects.isNull(req.getSession().getAttribute("userType")));
+        HttpSession session = req.getSession();
+        session.setAttribute("userType", userType);
+
+        final RequestDispatcher requestDispatcher = req.getRequestDispatcher(USER_LIST_PATH);
             requestDispatcher.forward(req, resp);
 
         }

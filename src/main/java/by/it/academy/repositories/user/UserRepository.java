@@ -11,6 +11,7 @@ public interface UserRepository <T> {
     boolean delete (User user);
     boolean update(User user, User newUser);
     List<User> readAllUser();
+    User userType(User user);
 
 }
 

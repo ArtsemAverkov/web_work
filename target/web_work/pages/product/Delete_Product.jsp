@@ -17,14 +17,27 @@
 <tbody>
 <form action ="/delete" method= "GET">
 <tr>
-<td><input type ="text" name = "name" placeholder ="name"></td>
-<td><input type ="text" name = "model" placeholder ="model"></td>
-<td><input type ="submit" value = "delete"></td>
+<div class="form-floating">
+<input type ="text" name = "name" placeholder ="name">
+<label for="floatingInput">Name</label>
+</td>
+
+<div class="form-floating">
+<input type ="text" name = "model" placeholder ="model">
+<label for="floatingInput">Model</label>
+</td>
+
+<td>
+<input type ="submit" value = "delete">
+</td>
+
 </tr>
 </from>
 </tbody>
 
-<a href = "/pages/user/eShop.jsp">Shop</a>
+<a href = "/pages/shop/userShop.jsp">userShop</a>||
+
+<a href = "/pages/shop/adminShop.jsp">adminShop</a>
 
 </table>
 </body>

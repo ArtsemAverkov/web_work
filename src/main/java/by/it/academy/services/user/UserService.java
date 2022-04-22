@@ -10,5 +10,6 @@ public interface UserService <T>{
     boolean update (User user, User newUser);
     boolean delete (User user);
     List<User> readAllUser();
+    User userType(User user);
 
 }
