@@ -43,6 +43,7 @@ public class ComeInUserController extends HttpServlet {
         HttpSession session = req.getSession();
         session.setAttribute("userType", userType);
 
+
         final RequestDispatcher requestDispatcher = req.getRequestDispatcher(USER_LIST_PATH);
             requestDispatcher.forward(req, resp);
 

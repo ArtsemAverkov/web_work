@@ -26,9 +26,9 @@ public class UniqEntranceFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-String login = servletRequest.getParameter("login");
-String password = servletRequest.getParameter("password");
-User user = new User(login, password);
+        String login = servletRequest.getParameter("login");
+        String password = servletRequest.getParameter("password");
+        User user = new User(login, password);
         User read = userUserService.read(user);
         if (read == null){
           RequestDispatcher requestDispatcher = servletRequest.getRequestDispatcher("/pages/errors/User_error.jsp");

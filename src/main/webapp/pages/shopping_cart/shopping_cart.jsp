@@ -7,39 +7,19 @@
 </head>
 
 <body>
+<p>${products}</p>
 <table>
 <a href = "/pages/shop/userShop.jsp">userShop</a>||
 <a href = "/pages/shop/adminShop.jsp">adminShop</a>
 <thead>
 <tr>
-<th>name</th>
-<th>model</th>
-<th>price</th>
+
 </tr>
 </thead>
 <tbody>
-<form action ="/readAllProduct" method= "GET">
-<c:forEach var = "product" items = "${products}">
-
-<tr>
-<td>
-${product.name}
-</td>
-
-<td>
-${product.model}
-
-</td>
-
-<td>
-${product.price}
-
-</td>
-
-</tr>
-</c:forEach>
+<form action ="/shopping_cart" method= "GET">
 </tbody>
-<a href = "pages/product/ReadProduct.jsp">Buy_A_Product</a>
+<a href = "/pages/shop/userShop.jsp">Shop</a>
 </table>
 </body>
 </html>

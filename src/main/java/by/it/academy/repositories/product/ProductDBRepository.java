@@ -20,10 +20,11 @@ public class ProductDBRepository implements ProductRepository <Product>{
     @Override
     public boolean insert(Product product) {
         try(Connection conn = connection.connect()){
-            PreparedStatement statement = conn.prepareStatement("INSERT INTO Product (name, model, price)VALUES (?,?,?)");
+            PreparedStatement statement = conn.prepareStatement("INSERT INTO Product (name, model, price, amount)VALUES (?,?,?,?)");
             statement.setString(1, product.getName());
             statement.setString(2, product.getModel());
             statement.setString(3, product.getPrice());
+            statement.setString(4,product.getAmount());
             int i = statement.executeUpdate();
             connection.close();
             return true;
@@ -46,7 +47,8 @@ public class ProductDBRepository implements ProductRepository <Product>{
                     String name = resultSet.getString("name");
                     String model= resultSet.getString("model");
                     String price = String.valueOf(resultSet.getInt("price"));
-                    newProduct = new Product(name, model, price);
+                    String amount = resultSet.getString("amount");
+                    newProduct = new Product(name, model, price, amount);
                     connection.close();
                     return newProduct;
                 }
@@ -62,13 +64,15 @@ public class ProductDBRepository implements ProductRepository <Product>{
     @Override
     public boolean updateProduct(Product product, Product newProduct) {
         try (Connection conn = connection.connect()) {
-            PreparedStatement statement = conn.prepareStatement("UPDATE Product SET name=?, model=?, price=? WHERE name=? AND model=? AND price=?");
+            PreparedStatement statement = conn.prepareStatement("UPDATE Product SET name=?, model=?, price=?, amount? WHERE name=? AND model=? AND price=? AND amount=?");
             statement.setString(1,newProduct.getName());
             statement.setString(2, newProduct.getModel());
             statement.setString(3, newProduct.getPrice());
-            statement.setString(4, product.getName());
-            statement.setString(5, product.getModel());
-            statement.setString(6, product.getPrice());
+            statement.setString(4, newProduct.getAmount());
+            statement.setString(5, product.getName());
+            statement.setString(6, product.getModel());
+            statement.setString(7, product.getPrice());
+            statement.setString(8, product.getAmount());
             int i = statement.executeUpdate();
 
             connection.close();

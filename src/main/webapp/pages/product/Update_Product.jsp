@@ -31,6 +31,12 @@
 <input type ="text" name = "price" placeholder ="price">
 <label for="floatingInput">Prise</label>
 </div>
+
+<div class="form-floating">
+<input type ="text" name = "amount" placeholder ="amount">
+<label for="floatingInput">Amount</label>
+</div>
+
 <div class="form-floating">
 <input type ="text" name = "newName" placeholder ="newName">
 <label for="floatingInput">NewName</label>
@@ -43,6 +49,14 @@
 <input type ="text" name = "newPrice" placeholder ="newPrice">
 <label for="floatingInput">NewPrice</label>
 </div>
+
+<div class="form-floating">
+<input type ="text" name = "newAmount" placeholder ="newAmount">
+<label for="floatingInput">NewAmount</label>
+</div>
+
+
+
 <td>
 <input type ="submit" value = "update"></td>
 </tr>

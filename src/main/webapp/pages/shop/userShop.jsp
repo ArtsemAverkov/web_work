@@ -22,6 +22,11 @@
 <div class="form-floating">
 <a href = "/readAllProduct">Product</a>
 </div>
+<div class="form-floating">
+<a href = "/shopping_cart">shopping_cart</a>
+</div>
+
+
 
 </table>
 </body>

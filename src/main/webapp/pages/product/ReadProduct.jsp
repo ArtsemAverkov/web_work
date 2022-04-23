@@ -13,7 +13,7 @@
 </tr>
 </thead>
 <tbody>
-<form action ="/product/create" method= "GET">
+<form action ="/readProductAdd" method= "GET">
 <tr>
 
 <div class="form-floating">
@@ -37,7 +37,7 @@
 </td>
 
 <td>
-<input type ="submit" value = "create">
+<input type ="submit" value = "Buy">
 </td>
 
 </tr>

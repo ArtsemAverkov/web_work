@@ -2,13 +2,16 @@ package by.it.academy.entities;
 
 import java.util.Objects;
 
-public class Product {
+public class Product extends Throwable {
     private String name;
     private String model;
     private String price;
     private int quantity;
+    private String amount;
 
-    public Product() {
+
+
+    public Product(String name, String model, String price, int i) {
     }
 
     public Product(String name, String model) {
@@ -16,10 +19,25 @@ public class Product {
         this.model = model;
     }
 
+    public Product(String name, String model, String price, String amount) {
+        this.name = name;
+        this.model = model;
+        this.price = price;
+        this.amount = amount;
+    }
+
     public Product(String name, String model, String price) {
         this.name = name;
         this.model = model;
-        this.price = String.valueOf(price);
+        this.price = price;
+    }
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
     }
 
     public int getQuantity() {
@@ -59,12 +77,12 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return quantity == product.quantity && Objects.equals(name, product.name) && Objects.equals(model, product.model) && Objects.equals(price, product.price);
+        return quantity == product.quantity && Objects.equals(name, product.name) && Objects.equals(model, product.model) && Objects.equals(price, product.price) && Objects.equals(amount, product.amount);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, model, price, quantity);
+        return Objects.hash(name, model, price, quantity, amount);
     }
 
     @Override
@@ -74,6 +92,7 @@ public class Product {
                 ", model='" + model + '\'' +
                 ", price='" + price + '\'' +
                 ", quantity=" + quantity +
+                ", amount=" + amount +
                 '}';
     }
 }
