@@ -5,8 +5,9 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Objects;
-//@WebFilter(urlPatterns = {"/user/readAllUser","/user/delete","/product/create","/delete","/updateProduct","/user/update"})
+@WebFilter(urlPatterns = {"/user/readAllUser","/user/delete","/product/create","/delete","/updateProduct","/user/update"})
 public class AuthorisationFilter implements Filter {
 
     @Override
@@ -22,13 +23,13 @@ public class AuthorisationFilter implements Filter {
 
         if ((Objects.nonNull(session)) && Objects.nonNull(session.getAttribute("userType"))) {
             Object attribute = session.getAttribute("userType");
-            String s = attribute.toString();
 
 
-            if (s == "ADMIN"){ //сделать проверку
+
+            if ("ADMIN".equals(attribute)){ //сделать проверку
             chain.doFilter(request,response);
         }else {
-            RequestDispatcher requestDispatcher = request1.getRequestDispatcher("/pages/shop/userShop.jsp");
+            RequestDispatcher requestDispatcher = request1.getRequestDispatcher("pages/errors/User_error.jsp");
             requestDispatcher.forward(request, response);
         }
     }else{
