@@ -26,10 +26,10 @@ public class AuthorisationFilter implements Filter {
 
 
 
-            if ("ADMIN".equals(attribute)){ //сделать проверку
+            if ("ADMIN".equals(attribute)){
             chain.doFilter(request,response);
         }else {
-            RequestDispatcher requestDispatcher = request1.getRequestDispatcher("pages/errors/User_error.jsp");
+            RequestDispatcher requestDispatcher = request1.getRequestDispatcher("/pages/errors/User_error.jsp");
             requestDispatcher.forward(request, response);
         }
     }else{

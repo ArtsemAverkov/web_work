@@ -2,7 +2,7 @@
 <html lan="en" >
 <head>
 <body>
-No such user
+Access Restricted
 <form method="LINK" action="/index.jsp">
 <input type ="submit" value="Start page">
 </form>

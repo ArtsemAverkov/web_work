@@ -29,7 +29,8 @@ public class CreateProductController extends HttpServlet {
         final String name = req.getParameter("name");
         final String model = req.getParameter("model");
         final String price = req.getParameter("price");
-        final Product product = new Product(name,model ,price);
+        final int amount = Integer.parseInt(req.getParameter("amount"));
+        final Product product = new Product(name,model ,price, amount);
         logger.info(product);
         productProductServiceService.insert(product);
 

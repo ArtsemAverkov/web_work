@@ -31,7 +31,7 @@ public class UniqEntranceFilter implements Filter {
         User user = new User(login, password);
         User read = userUserService.read(user);
         if (read == null){
-          RequestDispatcher requestDispatcher = servletRequest.getRequestDispatcher("/pages/errors/User_error.jsp");
+          RequestDispatcher requestDispatcher = servletRequest.getRequestDispatcher("/pages/errors/user_login_error.jsp");
           requestDispatcher.forward(servletRequest, servletResponse);
         }else {
             filterChain.doFilter(servletRequest,servletResponse);
