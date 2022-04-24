@@ -24,7 +24,7 @@ public class ProductDBRepository implements ProductRepository <Product>{
             statement.setString(1, product.getName());
             statement.setString(2, product.getModel());
             statement.setString(3, product.getPrice());
-            statement.setString(4,product.getAmount());
+            statement.setInt(4,product.getAmount());
             int i = statement.executeUpdate();
             connection.close();
             return true;
@@ -47,7 +47,7 @@ public class ProductDBRepository implements ProductRepository <Product>{
                     String name = resultSet.getString("name");
                     String model= resultSet.getString("model");
                     String price = String.valueOf(resultSet.getInt("price"));
-                    String amount = resultSet.getString("amount");
+                    int amount = Integer.parseInt(resultSet.getString("amount"));
                     newProduct = new Product(name, model, price, amount);
                     connection.close();
                     return newProduct;
@@ -64,15 +64,15 @@ public class ProductDBRepository implements ProductRepository <Product>{
     @Override
     public boolean updateProduct(Product product, Product newProduct) {
         try (Connection conn = connection.connect()) {
-            PreparedStatement statement = conn.prepareStatement("UPDATE Product SET name=?, model=?, price=?, amount? WHERE name=? AND model=? AND price=? AND amount=?");
+            PreparedStatement statement = conn.prepareStatement("UPDATE Product SET name=?, model=?, price=?, amount=? WHERE name=? AND model=? AND price=? AND amount=?");
             statement.setString(1,newProduct.getName());
             statement.setString(2, newProduct.getModel());
             statement.setString(3, newProduct.getPrice());
-            statement.setString(4, newProduct.getAmount());
+            statement.setInt(4, newProduct.getAmount());
             statement.setString(5, product.getName());
             statement.setString(6, product.getModel());
             statement.setString(7, product.getPrice());
-            statement.setString(8, product.getAmount());
+            statement.setInt(8, product.getAmount());
             int i = statement.executeUpdate();
 
             connection.close();
@@ -112,7 +112,8 @@ public class ProductDBRepository implements ProductRepository <Product>{
                 String name = resultSet.getString("name");
                 String model = resultSet.getString("model");
                String price = resultSet.getString("price");
-             products.add(new Product(name, model, price));
+               int amount = Integer.parseInt(resultSet.getString("amount"));
+             products.add(new Product(name, model, price, amount));
                 System.out.println(products);
 
             }

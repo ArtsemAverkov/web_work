@@ -31,26 +31,25 @@ public class ReadProductController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final String name = req.getParameter("name");
         final String model = req.getParameter("model");
-        final String price = req.getParameter("price");
-        final String amount = req.getParameter("amount");
+        final String price= req.getParameter("price");
+        final int amount = Integer.parseInt(req.getParameter("amount"));
+        final Product productSession = new Product(name,model,price,amount);
 
-        final Product product = new Product(name, model);
-        final Product newProduct = new Product(name, model, price, amount);
-        if (productProductServiceService.readProduct(product) != null) {
+        final Product product = new Product(name, model,price);
+        Product product1 = productProductServiceService.readProduct(product);
+        final Product newProduct = new Product(name, model,price, (product1.getAmount() - amount));
+        productProductServiceService.updateProduct(product1, newProduct);
 
-        productProductServiceService.updateProduct(product,newProduct);
-        logger.info(product);
+
 
 
             if ((Objects.nonNull(req.getSession())) && Objects.isNull(req.getSession().getAttribute("productRead"))) ;
             HttpSession session = req.getSession();
-            session.setAttribute("productRead", product);
+            session.setAttribute("productRead", productSession);
 
             final RequestDispatcher requestDispatcher = req.getRequestDispatcher(PRODUCT_LIST_PATH);
             requestDispatcher.forward(req, resp);
 
-        }else {
-            logger.info("Нет такого тавара");
         }
     }
-}
+

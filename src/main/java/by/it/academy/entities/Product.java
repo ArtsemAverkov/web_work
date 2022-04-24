@@ -7,11 +7,21 @@ public class Product extends Throwable {
     private String model;
     private String price;
     private int quantity;
-    private String amount;
+    private int amount;
 
+    public Product() {
+    }
 
+    public Product(String message, int amount) {
+        super(message);
+        this.amount = amount;
+    }
 
-    public Product(String name, String model, String price, int i) {
+    public Product(String name, String model, String price, int amount) {
+        this.name = name;
+        this.model = model;
+        this.price = price;
+        this.amount = amount;
     }
 
     public Product(String name, String model) {
@@ -19,12 +29,7 @@ public class Product extends Throwable {
         this.model = model;
     }
 
-    public Product(String name, String model, String price, String amount) {
-        this.name = name;
-        this.model = model;
-        this.price = price;
-        this.amount = amount;
-    }
+
 
     public Product(String name, String model, String price) {
         this.name = name;
@@ -32,11 +37,11 @@ public class Product extends Throwable {
         this.price = price;
     }
 
-    public String getAmount() {
+    public int getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(int amount) {
         this.amount = amount;
     }
 
@@ -87,12 +92,10 @@ public class Product extends Throwable {
 
     @Override
     public String toString() {
-        return "Product{" +
-                "name='" + name + '\'' +
-                ", model='" + model + '\'' +
-                ", price='" + price + '\'' +
-                ", quantity=" + quantity +
-                ", amount=" + amount +
-                '}';
+        return "Product: " +
+                "name: " + name + ",  " +
+                "model: " + model + ",  " +
+                "price: " + price + ",  " +
+                "amount: " + amount ;
     }
 }

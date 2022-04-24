@@ -9,12 +9,14 @@
 <body>
 <table>
 <a href = "/pages/shop/userShop.jsp">userShop</a>||
-<a href = "/pages/shop/adminShop.jsp">adminShop</a>
+<a href = "/pages/shop/adminShop.jsp">adminShop</a>||
 <thead>
 <tr>
 <th>name</th>
 <th>model</th>
 <th>price</th>
+<th>amount</th>
+
 </tr>
 </thead>
 <tbody>
@@ -33,6 +35,11 @@ ${product.model}
 
 <td>
 ${product.price}
+
+</td>
+
+<td>
+${product.amount}
 
 </td>
 

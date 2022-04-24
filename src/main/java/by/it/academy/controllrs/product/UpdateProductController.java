@@ -30,11 +30,13 @@ public class UpdateProductController extends HttpServlet {
       final String name = req.getParameter("name");
       final String model = req.getParameter("model");
       final String price = req.getParameter("price");
+      final int amount = Integer.parseInt(req.getParameter("amount"));
         final String newName = req.getParameter("newName");
         final String newModel = req.getParameter("newModel");
         final String newPrice = req.getParameter("newPrice");
-      final Product product = new Product(name, model, price);
-      final Product newProduct = new Product(newName,newModel,newPrice);
+        final int newAmount = Integer.parseInt(req.getParameter("newAmount"));
+      final Product product = new Product(name, model, price, amount);
+      final Product newProduct = new Product(newName,newModel,newPrice,newAmount);
       productProductService.updateProduct(product,newProduct);
         logger.info(product);
         logger.info(newProduct);
