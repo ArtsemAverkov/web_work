@@ -40,4 +40,24 @@ public class ProductDBService implements ProductService <Product>{
     public  List<Product> readAllProduct() {
         return repository.readAllProduct();
     }
+
+    @Override
+    public List<Product> readAllProductASCName() {
+        return repository.readAllProductASCName();
+    }
+
+    @Override
+    public List<Product> readAllProductASCPrice() {
+        return repository.readAllProductASCPrice();
+    }
+
+    @Override
+    public List<Product> readAllProductDESCName() {
+        return repository.readAllProductDESCName();
+    }
+
+    @Override
+    public List<Product> readAllProductDESCPrice() {
+        return repository.readAllProductDESCPrice();
+    }
 }

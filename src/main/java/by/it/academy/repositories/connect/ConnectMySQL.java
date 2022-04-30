@@ -6,22 +6,15 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+
 public class ConnectMySQL implements Connect {
+    private Connection connection;
     private final Logger logger = Logger.getLogger(ConnectMySQL.class);
 
     private String url = "jdbc:mysql://127.0.0.1:8889/user1";
     private String username = "root";
     private String password = "root";
-    private Connection connection;
     private final String DB_DRIVER = "com.mysql.jdbc.Driver";
-
-    public ConnectMySQL() {
-    }
-    public ConnectMySQL(String url, String username, String password) {
-        this.url = url;
-        this.username = username;
-        this.password = password;
-    }
 
     @Override
     public Connection connect() throws ClassNotFoundException, SQLException {
@@ -42,5 +35,8 @@ public class ConnectMySQL implements Connect {
             return false;
         }
     }
+
+
+
 }
 

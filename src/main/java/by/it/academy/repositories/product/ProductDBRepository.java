@@ -126,4 +126,112 @@ public class ProductDBRepository implements ProductRepository <Product>{
         }
         return products;
     }
+
+    @Override
+    public List<Product> readAllProductASCName() {
+        List<Product> products = new ArrayList<>();
+        try (Connection conn = connection.connect()){
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT*FROM Product ORDER BY name ASC");
+            while (resultSet.next()){
+                String name = resultSet.getString("name");
+                String model = resultSet.getString("model");
+                String price = resultSet.getString("price");
+                int amount = Integer.parseInt(resultSet.getString("amount"));
+                products.add(new Product(name, model, price, amount));
+                System.out.println(products);
+            }
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return products;
+    }
+
+    @Override
+    public List<Product> readAllProductASCPrice() {
+        List<Product> products = new ArrayList<>();
+        try (Connection conn = connection.connect()){
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT*FROM Product ORDER BY price ASC");
+            while (resultSet.next()){
+                String name = resultSet.getString("name");
+                String model = resultSet.getString("model");
+                String price = resultSet.getString("price");
+                int amount = Integer.parseInt(resultSet.getString("amount"));
+                products.add(new Product(name, model, price, amount));
+                System.out.println(products);
+            }
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return products;
+    }
+
+
+    @Override
+    public List<Product> readAllProductDESCName() {
+        List<Product> products = new ArrayList<>();
+        try (Connection conn = connection.connect()){
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT*FROM Product ORDER BY name DESC");
+            while (resultSet.next()){
+                String name = resultSet.getString("name");
+                String model = resultSet.getString("model");
+                String price = resultSet.getString("price");
+                int amount = Integer.parseInt(resultSet.getString("amount"));
+                products.add(new Product(name, model, price, amount));
+                System.out.println(products);
+            }
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return products;
+    }
+
+    @Override
+    public List<Product> readAllProductDESCPrice() {
+        List<Product> products = new ArrayList<>();
+        try (Connection conn = connection.connect()){
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT*FROM Product ORDER BY name DESC");
+            while (resultSet.next()){
+                String name = resultSet.getString("name");
+                String model = resultSet.getString("model");
+                String price = resultSet.getString("price");
+                int amount = Integer.parseInt(resultSet.getString("amount"));
+                products.add(new Product(name, model, price, amount));
+                System.out.println(products);
+            }
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return products;
+    }
+
+    @Override
+    public List<Product> readAllProductBETWEENPrice(Product product) {
+
+        return null;
+    }
+
+    @Override
+    public List<Product> readAllProductLIKE() {
+        return null;
+    }
 }

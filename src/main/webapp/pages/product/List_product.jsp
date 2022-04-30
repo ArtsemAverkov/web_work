@@ -46,7 +46,11 @@ ${product.amount}
 </tr>
 </c:forEach>
 </tbody>
-<a href = "pages/product/ReadProduct.jsp">Buy_A_Product</a>
+<a href = "pages/product/ReadProduct.jsp">Buy_A_Product</a> ||
+<a href = "/ReadAllProductASPName">Sort_by_name(a-z)</a> ||
+<a href = "/ReadAllProductDESCName">Sort_by_name(z-a)</a> ||
+<a href = "/ReadAllProductASPPrice">Sort_by_price(9-1)</a> ||
+<a href = "/ReadAllProductDESPPrice">Sort_by_price(1-9)</a> ||
 </table>
 </body>
 </html>

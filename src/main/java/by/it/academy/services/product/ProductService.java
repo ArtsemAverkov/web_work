@@ -8,4 +8,8 @@ public interface ProductService <Product> {
     boolean updateProduct (Product product, Product newProduct);
     boolean deleteProduct (Product product);
     List<Product> readAllProduct();
+    List<Product> readAllProductASCName();
+    List<Product> readAllProductASCPrice();
+    List<Product> readAllProductDESCName();
+    List<Product> readAllProductDESCPrice();
 }
