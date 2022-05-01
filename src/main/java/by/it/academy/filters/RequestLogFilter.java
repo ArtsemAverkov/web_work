@@ -14,7 +14,6 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @WebFilter(urlPatterns = {"/user/*","/product/*"})
-
 public class RequestLogFilter implements Filter {
   private final Logger log = Logger.getLogger(RequestLogFilter.class);
     @Override
