@@ -205,7 +205,7 @@ public class ProductDBRepository implements ProductRepository <Product>{
         List<Product> products = new ArrayList<>();
         try (Connection conn = connection.connect()){
             Statement statement = conn.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT*FROM Product ORDER BY name DESC");
+            ResultSet resultSet = statement.executeQuery("SELECT*FROM Product ORDER BY price DESC");
             while (resultSet.next()){
                 String name = resultSet.getString("name");
                 String model = resultSet.getString("model");
@@ -226,12 +226,57 @@ public class ProductDBRepository implements ProductRepository <Product>{
 
     @Override
     public List<Product> readAllProductBETWEENPrice(Product product) {
+        List<Product> products = new ArrayList<>();
+        String from = product.getName();
+        String before = product.getModel();
+        String select = "SELECT" + "*" + " FROM " + "Product" + " WHERE " + "price " + "BETWEEN " + from + " AND " + before;
 
-        return null;
+        try (Connection conn = connection.connect()){
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery(select);
+            while (resultSet.next()){
+                String name = resultSet.getString("name");
+                String model = resultSet.getString("model");
+                String price = resultSet.getString("price");
+                int amount = Integer.parseInt(resultSet.getString("amount"));
+                products.add(new Product(name, model, price, amount));
+                System.out.println(products);
+            }
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return products;
     }
 
     @Override
-    public List<Product> readAllProductLIKE() {
-        return null;
+    public List<Product> readAllProductLIKE(Product product) {
+        List<Product> products = new ArrayList<>();
+        String name1 = product.getName();
+        String select = "SELECT" + "*" + " FROM " + "Product" + " WHERE " + "name " + "LIKE " + "'" + name1 +"%'" ;
+
+        try (Connection conn = connection.connect()){
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery(select);
+            while (resultSet.next()){
+                String name = resultSet.getString("name");
+                String model = resultSet.getString("model");
+                String price = resultSet.getString("price");
+                int amount = Integer.parseInt(resultSet.getString("amount"));
+                products.add(new Product(name, model, price, amount));
+                System.out.println(products);
+            }
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return products;
     }
 }
+

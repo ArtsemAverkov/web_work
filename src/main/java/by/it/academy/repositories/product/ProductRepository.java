@@ -13,6 +13,6 @@ public interface ProductRepository<Product> {
     List<Product> readAllProductDESCName();
     List<Product> readAllProductDESCPrice();
     List<Product> readAllProductBETWEENPrice(Product product);
-    List<Product> readAllProductLIKE();
+    List<Product> readAllProductLIKE(Product product);
 
 }

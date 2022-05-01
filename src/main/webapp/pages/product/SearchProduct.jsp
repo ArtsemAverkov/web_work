@@ -20,16 +20,16 @@
 </tr>
 </thead>
 <tbody>
-
-
+<form action ="/ReadAllProductSearch" method= "GET">
 <tr>
-<form action ="/ReadProductFromBefore" method= "GET">
-<td>
+<div class="form-floating">
+<input type ="text" name = "name" placeholder ="name"   >
+<input type ="submit" value = "search">
 
-<input type ="text" name = "from" placeholder ="from">
-<input type ="text" name = "before" placeholder ="before">
-<input type ="submit" value = "ok">
-</td>
+</div>
+</tr>
+
+
 
 <form action ="/readAllProduct" method= "GET">
 <c:forEach var = "product" items = "${products}">
@@ -57,8 +57,7 @@ ${product.amount}
 </tr>
 </c:forEach>
 </tbody>
-<a href = "/pages/product/SearchProduct.jsp">SearchProduct</a> ||
-<a href = "/pages/product/ReadProduct.jsp">Buy_A_Product</a> ||
+<a href = "pages/product/ReadProduct.jsp">Buy_A_Product</a> ||
 <a href = "/ReadAllProductASPName">Sort_by_name(a-z)</a> ||
 <a href = "/ReadAllProductDESCName">Sort_by_name(z-a)</a> ||
 <a href = "/ReadAllProductASPPrice">Sort_by_price(0-9)</a> ||

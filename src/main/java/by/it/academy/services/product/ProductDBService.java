@@ -60,4 +60,14 @@ public class ProductDBService implements ProductService <Product>{
     public List<Product> readAllProductDESCPrice() {
         return repository.readAllProductDESCPrice();
     }
+
+    @Override
+    public List<Product> readAllProductBETWEENPrice(Product product) {
+        return repository.readAllProductBETWEENPrice(product);
+    }
+
+    @Override
+    public List<Product> readAllProductLIKE(Product product) {
+        return repository.readAllProductLIKE(product);
+    }
 }
