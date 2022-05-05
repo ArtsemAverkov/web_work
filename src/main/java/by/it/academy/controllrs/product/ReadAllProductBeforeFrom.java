@@ -30,11 +30,11 @@ public class ReadAllProductBeforeFrom extends HttpServlet {
         final String from = req.getParameter("from");
         final String before = req.getParameter("before");
         final Product product1 = new Product(from,before);
-        logger.info(product1);
+        logger.info("ReadAllProductBeforeFrom" + product1);
 
         List<Product> product = productProductServiceService.readAllProductBETWEENPrice(product1);
         final RequestDispatcher requestDispatcher = req.getRequestDispatcher(PRODUCT_PAGE);
-        logger.info(product);
+        logger.info("ReadAllProductBeforeFrom" + product);
         req.setAttribute("products", product);
         requestDispatcher.forward(req, resp);
     }

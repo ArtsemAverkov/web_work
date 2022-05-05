@@ -25,8 +25,8 @@ public class ComeInUserController extends HttpServlet {
     private final List<User> users = new ArrayList<>();
     private final UserRepository<User> userUserRepository = new UserApiRepository(users);
     private final UserService<User> userUserService = new UserApiService(userUserRepository);
-    private static final String USER_LIST_PATH = "/pages/shop/userShop.jsp";
-
+    private static final String USER_LIST_PATH = "/readAllProduct";
+    private static final String ADMIN_LIST_PATH = "/pages/shop/adminShop.jsp";
 
 
     @Override
@@ -36,18 +36,22 @@ public class ComeInUserController extends HttpServlet {
 
         final User user = new User(login, password);
         User read = userUserService.userType(user);
-        logger.info(read);
+        logger.info("ComeInUserController"+read);
 
         String userType = read.getUserType();
-        if ((Objects.nonNull(req.getSession())) && Objects.isNull(req.getSession().getAttribute("userType")));
+        if ((Objects.nonNull(req.getSession())) && Objects.isNull(req.getSession().getAttribute("userType"))) ;
         HttpSession session = req.getSession();
         session.setAttribute("userType", userType);
 
-
-        final RequestDispatcher requestDispatcher = req.getRequestDispatcher(USER_LIST_PATH);
+        if ("ADMIN".equals(userType)) {
+            final RequestDispatcher requestDispatcher = req.getRequestDispatcher(ADMIN_LIST_PATH);
+            requestDispatcher.forward(req, resp);
+        } else {
+            final RequestDispatcher requestDispatcher = req.getRequestDispatcher(USER_LIST_PATH);
             requestDispatcher.forward(req, resp);
 
         }
     }
+}
 
 

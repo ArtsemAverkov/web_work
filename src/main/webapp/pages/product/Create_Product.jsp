@@ -5,13 +5,8 @@
 <head>
 <title>Create User</title>
 </head>
-<body class="text-center">>
+<body class="text-center">
 <table>
-<thead>
-<tr>
-
-</tr>
-</thead>
 <tbody>
 <form action ="/product/create" method= "GET">
 <tr>
@@ -43,8 +38,7 @@
 </tr>
 </from>
 </tbody>
-<a href = "/pages/shop/userShop.jsp">userShop</a>||
-<a href = "/pages/shop/adminShop.jsp">adminShop</a>
+
 </table>
 </body>
 </html>

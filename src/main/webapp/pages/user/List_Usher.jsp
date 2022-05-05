@@ -8,8 +8,6 @@
 
 <body>
 <table>
-<a href = "/pages/shop/userShop.jsp">userShop</a>||
-<a href = "/pages/shop/adminShop.jsp">adminShop</a>
 <thead>
 <tr>
 <th>login</th>

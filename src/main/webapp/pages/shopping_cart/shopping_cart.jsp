@@ -5,12 +5,10 @@
 <head>
 <title>Product</title>
 </head>
-
 <body>
 <p>${products}</p>
 <table>
-<a href = "/pages/shop/userShop.jsp">userShop</a>||
-<a href = "/pages/shop/adminShop.jsp">adminShop</a>
+
 <thead>
 <tr>
 
@@ -19,7 +17,7 @@
 <tbody>
 <form action ="/shopping_cart" method= "GET">
 </tbody>
-<a href = "/pages/shop/userShop.jsp">Shop</a>
+<a href = "/readAllProduct">Shop</a>
 </table>
 </body>
 </html>

@@ -29,7 +29,7 @@ public class ReadProductController extends HttpServlet {
         final String name = req.getParameter("name");
         final String model = req.getParameter("model");
         final Product product = new Product(name, model);
-        logger.info(product);
+        logger.info(" ReadProductController" +product);
         productProductServiceService.readProduct(product);
 
 

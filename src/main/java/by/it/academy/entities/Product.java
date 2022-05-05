@@ -124,10 +124,7 @@ public class Product extends Throwable {
                 "name='" + name + '\'' +
                 ", model='" + model + '\'' +
                 ", price='" + price + '\'' +
-                ", quantity=" + quantity +
                 ", amount=" + amount +
-                ", from=" + from +
-                ", before=" + before +
                 '}';
     }
 }

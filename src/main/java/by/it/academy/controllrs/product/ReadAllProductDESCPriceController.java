@@ -29,7 +29,7 @@ public class ReadAllProductDESCPriceController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final RequestDispatcher requestDispatcher = req.getRequestDispatcher(PRODUCT_PAGE);
         List<Product> product = productProductServiceService.readAllProductDESCPrice();
-        logger.info(product);
+        logger.info("ReadAllProductDESCPriceController" + product);
         req.setAttribute("products", product);
         requestDispatcher.forward(req, resp);
     }

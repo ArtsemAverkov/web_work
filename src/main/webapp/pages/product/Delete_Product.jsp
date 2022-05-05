@@ -6,14 +6,8 @@
 <head>
 <title>Create User</title>
 </head>
-<body class="text-center">>
+<body class="text-center">
 <table>
-<thead>
-<tr>
-<th>Mame</th>
-<th>Model</th>
-</tr>
-</thead>
 <tbody>
 <form action ="/delete" method= "GET">
 <tr>
@@ -21,24 +15,16 @@
 <input type ="text" name = "name" placeholder ="name">
 <label for="floatingInput">Name</label>
 </td>
-
 <div class="form-floating">
 <input type ="text" name = "model" placeholder ="model">
 <label for="floatingInput">Model</label>
 </td>
-
 <td>
 <input type ="submit" value = "delete">
 </td>
-
 </tr>
 </from>
 </tbody>
-
-<a href = "/pages/shop/userShop.jsp">userShop</a>||
-
-<a href = "/pages/shop/adminShop.jsp">adminShop</a>
-
 </table>
 </body>
 </html>

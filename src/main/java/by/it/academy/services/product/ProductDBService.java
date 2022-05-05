@@ -70,4 +70,5 @@ public class ProductDBService implements ProductService <Product>{
     public List<Product> readAllProductLIKE(Product product) {
         return repository.readAllProductLIKE(product);
     }
+
 }

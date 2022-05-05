@@ -15,4 +15,5 @@ public interface ProductRepository<Product> {
     List<Product> readAllProductBETWEENPrice(Product product);
     List<Product> readAllProductLIKE(Product product);
 
+
 }

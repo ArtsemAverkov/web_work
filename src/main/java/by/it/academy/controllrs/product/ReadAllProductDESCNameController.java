@@ -28,7 +28,7 @@ public class ReadAllProductDESCNameController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final RequestDispatcher requestDispatcher = req.getRequestDispatcher(PRODUCT_PAGE);
         List<Product> product = productProductServiceService.readAllProductDESCName();
-        logger.info(product);
+        logger.info("ReadAllProductDESCNameController" + product);
         req.setAttribute("products", product);
         requestDispatcher.forward(req, resp);
 

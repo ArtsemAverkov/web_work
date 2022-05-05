@@ -28,11 +28,11 @@ public class ReadAllProductSearchController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final String name = req.getParameter("name");
         final Product product1 = new Product(name);
-        logger.info(product1);
+        logger.info("ReadAllProductSearchController" +product1);
 
         List<Product> product = productProductServiceService.readAllProductLIKE(product1);
         final RequestDispatcher requestDispatcher = req.getRequestDispatcher(PRODUCT_PAGE);
-        logger.info(product);
+        logger.info("ReadAllProductSearchController" +product);
         req.setAttribute("products", product);
         requestDispatcher.forward(req, resp);
     }

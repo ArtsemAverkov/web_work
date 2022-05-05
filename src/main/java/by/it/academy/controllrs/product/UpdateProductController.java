@@ -38,8 +38,8 @@ public class UpdateProductController extends HttpServlet {
       final Product product = new Product(name, model, price, amount);
       final Product newProduct = new Product(newName,newModel,newPrice,newAmount);
       productProductService.updateProduct(product,newProduct);
-        logger.info(product);
-        logger.info(newProduct);
+        logger.info("UpdateProductController" +product);
+        logger.info("UpdateProductController" +newProduct);
 
         RequestDispatcher requestDispatcher = req.getRequestDispatcher(PRODUCT_UPDATE);
         requestDispatcher.forward(req,resp);
