@@ -5,6 +5,7 @@
 <head>
 <title>Product</title>
 </head>
+<a href = "/readAllProduct">Shop</a>
 <body>
 <p>${products}</p>
 <table>
@@ -17,7 +18,7 @@
 <tbody>
 <form action ="/shopping_cart" method= "GET">
 </tbody>
-<a href = "/readAllProduct">Shop</a>
+
 </table>
 </body>
 </html>

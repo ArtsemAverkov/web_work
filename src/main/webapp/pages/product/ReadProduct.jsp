@@ -15,7 +15,6 @@
 <tbody>
 <form action ="/readProductAdd" method= "GET">
 <tr>
-
 <div class="form-floating">
 <input type ="text" name = "name" placeholder ="name">
 <label for="floatingInput">Name</label>
@@ -24,12 +23,12 @@
 <div class="form-floating">
 <input type ="text" name = "model" placeholder ="model">
 <label for="floatingInput">Model</label>
-</td>
+</div>
 
 <div class="form-floating">
 <input type ="text" name = "price" placeholder ="price">
 <label for="floatingInput">Price</label>
-</td>
+</div>
 
 <div class="form-floating">
 <input type ="text" name = "amount" placeholder ="amount">

@@ -21,9 +21,7 @@
 <tbody>
 
 </tbody>
-<div class="form-floating">
-<a href = "/ProductInfo">Productinfo</a>
-</div>
+
 
 <div class="form-floating">
 <a href = "/readAllProduct">Product</a>

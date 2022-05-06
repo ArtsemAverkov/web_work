@@ -1,8 +1,10 @@
 package by.it.academy.repositories.product;
 
+import by.it.academy.controllrs.product.ReadAllProduct;
 import by.it.academy.entities.Product;
 import by.it.academy.repositories.connect.Connect;
 import by.it.academy.repositories.connect.ConnectMySQL;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,7 +12,7 @@ import java.util.List;
 
 public class ProductDBRepository implements ProductRepository <Product>{
     Connect connection;
-
+    private final Logger logger = Logger.getLogger(ProductDBRepository.class);
     public ProductDBRepository(List<Product> connect) {
         this.connection = new ConnectMySQL();
     }
@@ -43,12 +45,13 @@ public class ProductDBRepository implements ProductRepository <Product>{
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM Product");
             while (resultSet.next()){
-                if (resultSet.getString("name").equals(product.getName()) && resultSet.getString("model").equals(product.getModel())) {
+                if (resultSet.getString("model").equals(product.getModel()) && resultSet.getString("name").equals(product.getName())) {
+                    String id = resultSet.getString("id");
                     String name = resultSet.getString("name");
                     String model= resultSet.getString("model");
                     String price = String.valueOf(resultSet.getInt("price"));
                     int amount = Integer.parseInt(resultSet.getString("amount"));
-                    newProduct = new Product(name, model, price, amount);
+                    newProduct = new Product(id,name, model, price, amount);
                     connection.close();
                     return newProduct;
                 }
@@ -109,12 +112,13 @@ public class ProductDBRepository implements ProductRepository <Product>{
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT*FROM Product");
             while (resultSet.next()){
+                String id = resultSet.getString("id");
                 String name = resultSet.getString("name");
                 String model = resultSet.getString("model");
                String price = resultSet.getString("price");
                int amount = Integer.parseInt(resultSet.getString("amount"));
-             products.add(new Product(name, model, price, amount));
-                System.out.println(products);
+             products.add(new Product(id,name, model, price, amount));
+               logger.info(products);
 
             }
             connection.close();
@@ -134,12 +138,13 @@ public class ProductDBRepository implements ProductRepository <Product>{
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT*FROM Product ORDER BY name ASC");
             while (resultSet.next()){
+                String id = resultSet.getString("id");
                 String name = resultSet.getString("name");
                 String model = resultSet.getString("model");
                 String price = resultSet.getString("price");
                 int amount = Integer.parseInt(resultSet.getString("amount"));
-                products.add(new Product(name, model, price, amount));
-                System.out.println(products);
+                products.add(new Product(id,name, model, price, amount));
+                logger.info("readAllProductASCName"+products);
             }
             connection.close();
 
@@ -158,12 +163,13 @@ public class ProductDBRepository implements ProductRepository <Product>{
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT*FROM Product ORDER BY price ASC");
             while (resultSet.next()){
+                String id = resultSet.getString("id");
                 String name = resultSet.getString("name");
                 String model = resultSet.getString("model");
                 String price = resultSet.getString("price");
                 int amount = Integer.parseInt(resultSet.getString("amount"));
-                products.add(new Product(name, model, price, amount));
-                System.out.println(products);
+                products.add(new Product(id,name, model, price, amount));
+                logger.info("readAllProductASCPrice"+products);
             }
             connection.close();
 
@@ -183,12 +189,13 @@ public class ProductDBRepository implements ProductRepository <Product>{
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT*FROM Product ORDER BY name DESC");
             while (resultSet.next()){
+                String id = resultSet.getString("id");
                 String name = resultSet.getString("name");
                 String model = resultSet.getString("model");
                 String price = resultSet.getString("price");
                 int amount = Integer.parseInt(resultSet.getString("amount"));
-                products.add(new Product(name, model, price, amount));
-                System.out.println(products);
+                products.add(new Product(id,name, model, price, amount));
+               logger.info("readAllProductDESCName"+products);
             }
             connection.close();
 
@@ -207,12 +214,13 @@ public class ProductDBRepository implements ProductRepository <Product>{
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT*FROM Product ORDER BY price DESC");
             while (resultSet.next()){
+                String id = resultSet.getString("id");
                 String name = resultSet.getString("name");
                 String model = resultSet.getString("model");
                 String price = resultSet.getString("price");
                 int amount = Integer.parseInt(resultSet.getString("amount"));
-                products.add(new Product(name, model, price, amount));
-                System.out.println(products);
+                products.add(new Product(id,name, model, price, amount));
+                logger.info(" readAllProductDESCPrice"+products);
             }
             connection.close();
 
@@ -235,12 +243,13 @@ public class ProductDBRepository implements ProductRepository <Product>{
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery(select);
             while (resultSet.next()){
+                String id = resultSet.getString("id");
                 String name = resultSet.getString("name");
                 String model = resultSet.getString("model");
                 String price = resultSet.getString("price");
                 int amount = Integer.parseInt(resultSet.getString("amount"));
-                products.add(new Product(name, model, price, amount));
-                System.out.println(products);
+                products.add(new Product(id,name, model, price, amount));
+                logger.info("readAllProductBETWEENPrice"+products);
             }
             connection.close();
 
@@ -262,12 +271,13 @@ public class ProductDBRepository implements ProductRepository <Product>{
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery(select);
             while (resultSet.next()){
+                String id = resultSet.getString("id");
                 String name = resultSet.getString("name");
                 String model = resultSet.getString("model");
                 String price = resultSet.getString("price");
                 int amount = Integer.parseInt(resultSet.getString("amount"));
-                products.add(new Product(name, model, price, amount));
-                System.out.println(products);
+                products.add(new Product(id,name, model, price, amount));
+                logger.info("readAllProductLIKE"+products);
             }
             connection.close();
 

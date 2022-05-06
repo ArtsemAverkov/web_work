@@ -9,6 +9,7 @@
 <body>
 <table>
 <li><a href = "/pages/product/SearchProduct.jsp">SearchProduct</a> ||
+<li><a href = "/shopping_cart">ShoppingCart</a> ||
 <a href = "/pages/product/ReadProduct.jsp">Buy_A_Product</a> ||
 <li><a href = "/ReadAllProductASPName">Sort_by_name(a-z)</a> ||
 <a href = "/ReadAllProductDESCName">Sort_by_name(z-a)</a> ||
@@ -24,6 +25,7 @@
 </td>
 
 <tr>
+<th>id</th>
 <th>name</th>
 <th>model</th>
 <th>price</th>
@@ -39,6 +41,9 @@
 <c:forEach var = "product" items = "${products}">
 
 <tr>
+<td>
+${product.id}
+</td>
 <td>
 ${product.name}
 </td>

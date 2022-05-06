@@ -27,7 +27,7 @@ private static final String SHOPPING_CART = "pages/shopping_cart/shopping_cart.j
 
 
             final RequestDispatcher requestDispatcher = req.getRequestDispatcher(SHOPPING_CART);
-            logger.info(product);
+            logger.info("ShoppingCartController" + product);
             req.setAttribute("products", product);
             requestDispatcher.forward(req, resp);
 
