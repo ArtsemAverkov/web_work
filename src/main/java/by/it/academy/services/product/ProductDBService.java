@@ -14,8 +14,8 @@ public class ProductDBService implements ProductService <Product>{
 
 
     @Override
-    public boolean insert(Product product) {
-        return repository.insert(product);
+    public boolean create(Product product) {
+        return repository.create(product);
 
     }
 

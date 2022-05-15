@@ -13,23 +13,22 @@ import java.util.Properties;
 
 public class ConnectMySQL implements Connect {
     private Connection connection;
+    private final String nameProperties = "/Users/artemaverkov/web_work/src/main/resources/Connection.properties";
     private final Logger logger = Logger.getLogger(ConnectMySQL.class);
         FileInputStream file;
         Properties properties = new Properties();
         {
             try {
-                file = new FileInputStream("/Users/artemaverkov/web_work/src/main/resources/Connection.properties");
+                file = new FileInputStream(nameProperties);
                 properties.load(file);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.info(e);
             }
         }
-    private String url = properties.getProperty("url") ;
-    String username = properties.getProperty("username");
-    String password = properties.getProperty("password");
-    String DB_DRIVER = properties.getProperty("DB_DRIVER");
+    private final String url = properties.getProperty("url") ;
+    private final String username = properties.getProperty("username");
+    private final String password = properties.getProperty("password");
+    private final String DB_DRIVER = properties.getProperty("DB_DRIVER");
 
     @Override
     public Connection connect() throws ClassNotFoundException, SQLException {
@@ -46,7 +45,7 @@ public class ConnectMySQL implements Connect {
             logger.info("Connection to Store DB closed!");
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.info(e);
             return false;
         }
     }

@@ -20,7 +20,7 @@ public class ProductDBRepository implements ProductRepository <Product>{
 
 
     @Override
-    public boolean insert(Product product) {
+    public boolean create(Product product) {
         try(Connection conn = connection.connect()){
             PreparedStatement statement = conn.prepareStatement("INSERT INTO Product (name, model, price, amount)VALUES (?,?,?,?)");
             statement.setString(1, product.getName());
@@ -30,10 +30,8 @@ public class ProductDBRepository implements ProductRepository <Product>{
             int i = statement.executeUpdate();
             connection.close();
             return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (SQLException | ClassNotFoundException e) {
+            logger.info(e);
         }
         return false;
     }
@@ -56,10 +54,8 @@ public class ProductDBRepository implements ProductRepository <Product>{
                     return newProduct;
                 }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (SQLException | ClassNotFoundException e) {
+            logger.info(e);
         }
         return null;
     }
@@ -80,10 +76,8 @@ public class ProductDBRepository implements ProductRepository <Product>{
 
             connection.close();
 
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
+        } catch (SQLException | ClassNotFoundException ex) {
+            logger.info(ex);
         }
         return false;
     }
@@ -97,10 +91,8 @@ public class ProductDBRepository implements ProductRepository <Product>{
             connection.close();
             return true;
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (SQLException | ClassNotFoundException e) {
+            logger.info(e);
         }
             return false;
     }
@@ -123,10 +115,8 @@ public class ProductDBRepository implements ProductRepository <Product>{
             }
             connection.close();
             return products;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (SQLException | ClassNotFoundException e) {
+            logger.info(e);
         }
         return products;
     }
@@ -148,10 +138,8 @@ public class ProductDBRepository implements ProductRepository <Product>{
             }
             connection.close();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (SQLException | ClassNotFoundException e) {
+            logger.info(e);
         }
         return products;
     }
@@ -173,10 +161,8 @@ public class ProductDBRepository implements ProductRepository <Product>{
             }
             connection.close();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (SQLException | ClassNotFoundException e) {
+            logger.info(e);
         }
         return products;
     }
@@ -199,10 +185,8 @@ public class ProductDBRepository implements ProductRepository <Product>{
             }
             connection.close();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (SQLException | ClassNotFoundException e) {
+            logger.info(e);
         }
         return products;
     }
@@ -224,10 +208,8 @@ public class ProductDBRepository implements ProductRepository <Product>{
             }
             connection.close();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (SQLException | ClassNotFoundException e) {
+            logger.info(e);
         }
         return products;
     }
@@ -253,10 +235,8 @@ public class ProductDBRepository implements ProductRepository <Product>{
             }
             connection.close();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (SQLException | ClassNotFoundException e) {
+            logger.info(e);
         }
         return products;
     }
@@ -281,10 +261,8 @@ public class ProductDBRepository implements ProductRepository <Product>{
             }
             connection.close();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (SQLException | ClassNotFoundException e) {
+            logger.info(e);
         }
         return products;
     }

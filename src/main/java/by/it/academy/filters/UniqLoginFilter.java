@@ -11,6 +11,8 @@ import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 @WebFilter(urlPatterns = {"/user/create"})
 public class UniqLoginFilter implements Filter {
     private final List<User> users = new ArrayList<>();
@@ -22,11 +24,11 @@ public class UniqLoginFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        String login = request.getParameter("login");
-        String password = request.getParameter("password");
-        User user = new User(login, password);
-        User read = userUserService.read(user);
-        if (read != null) {
+        final String login = request.getParameter("login");
+        final String password = request.getParameter("password");
+        final User user = new User(login, password);
+        final User read = userUserService.read(user);
+        if (Objects.isNull(read)) {
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/pages/errors/login_error.jsp");
             requestDispatcher.forward(request, response);
         }else{

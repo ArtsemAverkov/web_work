@@ -20,8 +20,8 @@ import java.util.List;
 import java.util.Objects;
 
 @WebServlet(urlPatterns = "/readProductAdd")
-public class ReadProductController extends HttpServlet {
-    private final Logger logger = Logger.getLogger(ReadProductController.class);
+public class ByProductController extends HttpServlet {
+    private final Logger logger = Logger.getLogger(ByProductController.class);
     private final List<Product> products = new ArrayList<>();
     private final ProductRepository<Product> productProductRepositoryRepository = new ProductDBRepository(products);
     private final ProductService<Product> productProductServiceService = new ProductDBService(productProductRepositoryRepository);

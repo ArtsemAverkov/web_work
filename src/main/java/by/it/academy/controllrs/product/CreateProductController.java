@@ -32,7 +32,7 @@ public class CreateProductController extends HttpServlet {
         final int amount = Integer.parseInt(req.getParameter("amount"));
         final Product product = new Product(name,model ,price, amount);
         logger.info("CreateProductController" + product);
-        productProductServiceService.insert(product);
+        productProductServiceService.create(product);
 
 
         final RequestDispatcher requestDispatcher = req.getRequestDispatcher(PRODUCT_LIST_PATH);

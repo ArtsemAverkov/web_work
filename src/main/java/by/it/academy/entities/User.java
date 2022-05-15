@@ -1,8 +1,10 @@
 package by.it.academy.entities;
 
+import lombok.Data;
+
 import java.util.Map;
 import java.util.Objects;
-
+@Data
 public class User {
     private Map<String, String> credential;
     private String login;

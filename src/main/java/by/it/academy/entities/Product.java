@@ -1,9 +1,12 @@
 package by.it.academy.entities;
 
-import java.util.Objects;
+import lombok.Data;
+import lombok.Value;
 
+import java.util.Objects;
+@Data
 public class Product extends Throwable {
-    private String id;
+    private  String id;
     private String name;
     private String model;
     private String price;
@@ -16,6 +19,7 @@ public class Product extends Throwable {
         this.name = name;
         this.model = model;
         this.price = price;
+
     }
 
     public Product(String name) {

@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @WebFilter(urlPatterns = "/user/come_in")
 public class UniqEntranceFilter implements Filter {
@@ -26,11 +27,11 @@ public class UniqEntranceFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        String login = servletRequest.getParameter("login");
-        String password = servletRequest.getParameter("password");
-        User user = new User(login, password);
-        User read = userUserService.read(user);
-        if (read == null){
+        final String login = servletRequest.getParameter("login");
+        final String password = servletRequest.getParameter("password");
+        final User user = new User(login, password);
+        final User read = userUserService.read(user);
+        if (Objects.nonNull(read)){
           RequestDispatcher requestDispatcher = servletRequest.getRequestDispatcher("/pages/errors/user_login_error.jsp");
           requestDispatcher.forward(servletRequest, servletResponse);
         }else {

@@ -3,6 +3,8 @@ package by.it.academy.repositories.user;
 import by.it.academy.entities.User;
 import by.it.academy.repositories.connect.Connect;
 import by.it.academy.repositories.connect.ConnectMySQL;
+import by.it.academy.repositories.product.ProductDBRepository;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,8 +12,7 @@ import java.util.List;
 
 public class UserApiRepository implements UserRepository<User> {
     Connect connection;
-
-
+    private final Logger logger = Logger.getLogger(UserApiRepository.class);
     public UserApiRepository(List<User> users) {
         connection = new ConnectMySQL();
     }
@@ -26,7 +27,7 @@ public class UserApiRepository implements UserRepository<User> {
             connection.close();
 
         } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
+            logger.info(e);
         }
     }
 
@@ -45,10 +46,8 @@ public class UserApiRepository implements UserRepository<User> {
                     return newUser;
                 }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (SQLException | ClassNotFoundException e) {
+            logger.info(e);
         }
         return newUser;
     }
@@ -63,10 +62,8 @@ public class UserApiRepository implements UserRepository<User> {
             connection.close();
             return true;
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (SQLException | ClassNotFoundException e) {
+            logger.info(e);
         }
         return false;
     }
@@ -79,15 +76,10 @@ public class UserApiRepository implements UserRepository<User> {
             statement.setString(2, newUser.getPassword());
             statement.setString(3, user.getLogin());
             statement.setString(4, user.getPassword());
-
-            int i = statement.executeUpdate();
-
+            statement.executeUpdate();
             connection.close();
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
+        } catch (SQLException | ClassNotFoundException ex) {
+            logger.info(ex);
         }
         return false;
     }
@@ -108,7 +100,7 @@ public class UserApiRepository implements UserRepository<User> {
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            logger.info(e);
         }
         return users;
     }
@@ -130,10 +122,8 @@ public class UserApiRepository implements UserRepository<User> {
                     return newUser;
                 }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (SQLException | ClassNotFoundException e) {
+            logger.info(e);
         }
         return newUser;
     }
