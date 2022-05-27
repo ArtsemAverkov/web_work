@@ -14,26 +14,29 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-@WebServlet(urlPatterns = "/ReadAllProductSearch")
-public class ReadAllProductSearchController extends HttpServlet {
+
+
+@WebServlet(urlPatterns = {"/ProductSortingName","/ProductSortingPrice"})
+public class ProductSortingController extends HttpServlet {
     private final Logger logger = Logger.getLogger(ReadAllProduct.class);
     private final List<Product> products = new ArrayList<>();
     private final ProductRepository<Product> productProductRepositoryRepository = new ProductDBRepository(products);
     private final ProductService<Product> productProductServiceService = new ProductDBService(productProductRepositoryRepository);
-    public static final String PRODUCT_PAGE = "/pages/product/SearchProduct.jsp";
+    public static final String PRODUCT_PAGE = "/pages/product/List_product.jsp";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        final String name = req.getParameter("name");
-        final Product newProduct = new Product(name);
-        logger.info("ReadAllProductSearchController" +newProduct);
+            final RequestDispatcher requestDispatcher = req.getRequestDispatcher(PRODUCT_PAGE);
+            List<Product> product = productProductServiceService.productSorting();
+            logger.info("ProductSortingController :" + product);
+            req.setAttribute("products", product);
+        PrintWriter writer = resp.getWriter();
+        int bufferSize = resp.getBufferSize();
 
-        List<Product> product = productProductServiceService.readAllProductLIKE(newProduct);
-        final RequestDispatcher requestDispatcher = req.getRequestDispatcher(PRODUCT_PAGE);
-        logger.info("ReadAllProductSearchController" +product);
-        req.setAttribute("products", product);
         requestDispatcher.forward(req, resp);
+        }
     }
-}
+

@@ -4,8 +4,10 @@ import by.it.academy.entities.User;
 import by.it.academy.repositories.user.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
-public class UserApiService implements UserService<User>{
+public class UserApiService implements UserService<User> {
      private UserRepository<User> repository;
 
 
@@ -19,8 +21,10 @@ public class UserApiService implements UserService<User>{
     }
 
     @Override
-    public User read(User user) {
-        return  repository.read(user);
+    public  List<User> read(User user) {
+        return  repository.read(user)
+                .stream()
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -35,12 +39,17 @@ public class UserApiService implements UserService<User>{
 
     @Override
     public List<User> readAllUser() {
-        return repository.readAllUser();
+        return repository.readAllUser()
+                .stream()
+                .map(Optional::get)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public User userType(User user) {
-        return repository.userType(user);
+    public  List<User>  userType(User user) {
+        return repository.userType(user)
+                .stream()
+                .collect(Collectors.toList());
     }
 
 

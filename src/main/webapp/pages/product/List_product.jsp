@@ -8,13 +8,17 @@
 
 <body>
 <table>
-<li><a href = "/pages/product/SearchProduct.jsp">SearchProduct</a> ||
+<li><a href = "/ReadAllProductSearch">SearchProduct</a> ||
 <li><a href = "/shopping_cart">ShoppingCart</a> ||
 <a href = "/pages/product/ReadProduct.jsp">Buy_A_Product</a> ||
-<li><a href = "/ReadAllProductASPName">Sort_by_name(a-z)</a> ||
-<a href = "/ReadAllProductDESCName">Sort_by_name(z-a)</a> ||
-<a href = "/ReadAllProductASPPrice">Sort_by_price(0-9)</a> ||
-<a href = "/ReadAllProductDESPPrice">Sort_by_price(9-0)</a> ||
+
+<li><a href = "/ProductSortingName"> Sort_by_name(a-z)</a> ||
+<a href = "/ProductSorting">Sort_by_name(z-a)</a> ||
+
+<a href = "/ProductSortingPrice">Sort_by_price(0-9)
+<input type="hidden" name="button" value="button1"/></a> ||
+
+<a href = "/ProductSorting">Sort_by_price(9-0)</a> ||
 <thead>
 <tr>
 <form action ="/ReadProductFromBefore" method= "GET">

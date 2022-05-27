@@ -35,12 +35,9 @@ public class ByProductController extends HttpServlet {
         final int amount = Integer.parseInt(req.getParameter("amount"));
         final Product productSession = new Product(name, model,price);
 
-        Product products = productProductServiceService.readProduct(productSession);
+        Product products = (Product) productProductServiceService.readProduct(productSession);
         final Product newProduct = new Product(products.getId(), products.getName(), products.getModel(),products.getPrice(), (products.getAmount() - amount));
         productProductServiceService.updateProduct(products, newProduct);
-
-
-
 
             if ((Objects.nonNull(req.getSession())) && Objects.isNull(req.getSession().getAttribute("productRead"))) ;
             HttpSession session = req.getSession();

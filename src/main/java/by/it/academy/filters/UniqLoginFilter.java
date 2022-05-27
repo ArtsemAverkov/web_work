@@ -27,7 +27,7 @@ public class UniqLoginFilter implements Filter {
         final String login = request.getParameter("login");
         final String password = request.getParameter("password");
         final User user = new User(login, password);
-        final User read = userUserService.read(user);
+        final User read = (User) userUserService.read(user);
         if (Objects.isNull(read)) {
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/pages/errors/login_error.jsp");
             requestDispatcher.forward(request, response);

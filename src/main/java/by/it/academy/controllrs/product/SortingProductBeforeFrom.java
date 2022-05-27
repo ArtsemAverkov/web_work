@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(urlPatterns = "/ReadProductFromBefore")
-public class ReadAllProductBeforeFrom extends HttpServlet {
+public class SortingProductBeforeFrom extends HttpServlet {
     private final Logger logger = Logger.getLogger(ReadAllProduct.class);
     private final List<Product> products = new ArrayList<>();
     private final ProductRepository<Product> productProductRepositoryRepository = new ProductDBRepository(products);
@@ -29,10 +29,10 @@ public class ReadAllProductBeforeFrom extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final String from = req.getParameter("from");
         final String before = req.getParameter("before");
-        final Product product1 = new Product(from,before);
-        logger.info("ReadAllProductBeforeFrom" + product1);
+        final Product newProduct = new Product(from,before);
+        logger.info("SortingProductBeforeFrom :" + newProduct);
 
-        List<Product> product = productProductServiceService.readAllProductBETWEENPrice(product1);
+        List<Product> product = productProductServiceService.sortingProductBeforeFrom(newProduct);
         final RequestDispatcher requestDispatcher = req.getRequestDispatcher(PRODUCT_PAGE);
         logger.info("ReadAllProductBeforeFrom" + product);
         req.setAttribute("products", product);

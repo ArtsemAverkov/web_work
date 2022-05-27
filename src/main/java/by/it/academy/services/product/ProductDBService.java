@@ -4,6 +4,8 @@ import by.it.academy.entities.Product;
 import by.it.academy.repositories.product.ProductRepository;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class ProductDBService implements ProductService <Product>{
     private ProductRepository <Product> repository;
@@ -20,8 +22,11 @@ public class ProductDBService implements ProductService <Product>{
     }
 
     @Override
-    public Product readProduct(Product product) {
-        return repository.readProduct(product);
+    public   List<Product> readProduct (Product product) {
+        return repository.readProduct(product)
+                .stream()
+                .sorted()
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -37,38 +42,34 @@ public class ProductDBService implements ProductService <Product>{
     }
 
     @Override
-    public  List<Product> readAllProduct() {
-        return repository.readAllProduct();
+    public  List<Optional<Product>> readAllProduct() {
+        List<Optional<Product>> collect = repository.readAllProduct()
+                .stream()
+                .sorted()
+                .collect(Collectors.toList());
+        return collect;
+    }
+
+
+    @Override
+    public List<Product> sortingProductBeforeFrom (Product product) {
+        return repository.sortingProductBeforeFrom(product)
+                .stream()
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Product> readAllProductASCName() {
-        return repository.readAllProductASCName();
+    public List<Product> searchProduct (Product product) {
+        return repository.searchProduct(product)
+                .stream()
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Product> readAllProductASCPrice() {
-        return repository.readAllProductASCPrice();
-    }
-
-    @Override
-    public List<Product> readAllProductDESCName() {
-        return repository.readAllProductDESCName();
-    }
-
-    @Override
-    public List<Product> readAllProductDESCPrice() {
-        return repository.readAllProductDESCPrice();
-    }
-
-    @Override
-    public List<Product> readAllProductBETWEENPrice(Product product) {
-        return repository.readAllProductBETWEENPrice(product);
-    }
-
-    @Override
-    public List<Product> readAllProductLIKE(Product product) {
-        return repository.readAllProductLIKE(product);
+    public List<Product> productSorting() {
+        return repository.productSorting()
+                .stream()
+                .collect(Collectors.toList());
     }
 
 }

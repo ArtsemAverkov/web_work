@@ -1,19 +1,15 @@
 package by.it.academy.repositories.product;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductRepository<Product> {
     boolean create(Product product);
-    Product readProduct (Product product);
+    Optional<Product> readProduct (Product product);
     boolean updateProduct (Product product, Product newProduct);
     boolean deleteProduct (Product product);
-    List<Product> readAllProduct();
-    List<Product> readAllProductASCName();
-    List<Product> readAllProductASCPrice();
-    List<Product> readAllProductDESCName();
-    List<Product> readAllProductDESCPrice();
-    List<Product> readAllProductBETWEENPrice(Product product);
-    List<Product> readAllProductLIKE(Product product);
-
-
+    List<Optional<Product>>readAllProduct();
+    Optional<Product> sortingProductBeforeFrom(Product product);
+    Optional<Product> searchProduct(Product product);
+    Optional<Product> productSorting();
 }

@@ -16,22 +16,24 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-@WebServlet(urlPatterns = {"/ReadAllProductDESCName"})
-public class ReadAllProductDESCNameController extends HttpServlet {
+@WebServlet(urlPatterns = "/ReadAllProductSearch")
+public class SearchProductController extends HttpServlet {
     private final Logger logger = Logger.getLogger(ReadAllProduct.class);
     private final List<Product> products = new ArrayList<>();
     private final ProductRepository<Product> productProductRepositoryRepository = new ProductDBRepository(products);
     private final ProductService<Product> productProductServiceService = new ProductDBService(productProductRepositoryRepository);
-    public static final String PRODUCT_PAGE = "/pages/product/List_product.jsp";
+    public static final String PRODUCT_PAGE = "/pages/product/SearchProduct.jsp";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        final String name = req.getParameter("name");
+        final Product newProduct = new Product(name);
+        logger.info("ReadAllProductSearchController" +newProduct);
+
+        List<Product> product = productProductServiceService.searchProduct(newProduct);
         final RequestDispatcher requestDispatcher = req.getRequestDispatcher(PRODUCT_PAGE);
-        List<Product> product = productProductServiceService.readAllProductDESCName();
-        logger.info("ReadAllProductDESCNameController" + product);
+        logger.info("ReadAllProductSearchController" +product);
         req.setAttribute("products", product);
         requestDispatcher.forward(req, resp);
-
-
     }
 }

@@ -31,7 +31,7 @@ public class CreateUserController extends HttpServlet {
         final String login = req.getParameter("login");
         final String password = req.getParameter("password");
         final User user = new User(login, password);
-       logger.info("CreateUserController"+user);
+       logger.info("CreateUserController :" + user);
         userUserService.create(user);
 
 

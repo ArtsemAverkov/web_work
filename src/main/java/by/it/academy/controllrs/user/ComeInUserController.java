@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @WebServlet(urlPatterns = {"/user/come_in"})
 public class ComeInUserController extends HttpServlet {
@@ -35,7 +36,7 @@ public class ComeInUserController extends HttpServlet {
         final String password = req.getParameter("password");
 
         final User user = new User(login, password);
-        User read = userUserService.userType(user);
+        User read = (User) userUserService.userType(user);
         logger.info("ComeInUserController"+read);
 
         String userType = read.getUserType();

@@ -3,12 +3,12 @@ package by.it.academy.repositories.user;
 import by.it.academy.entities.User;
 import by.it.academy.repositories.connect.Connect;
 import by.it.academy.repositories.connect.ConnectMySQL;
-import by.it.academy.repositories.product.ProductDBRepository;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class UserApiRepository implements UserRepository<User> {
     Connect connection;
@@ -23,7 +23,7 @@ public class UserApiRepository implements UserRepository<User> {
             PreparedStatement statement = conn.prepareStatement("INSERT INTO user1 (login, password) VALUES (?,?)");
             statement.setString(1, user.getLogin());
             statement.setString(2, user.getPassword());
-            int rowsInserted = statement.executeUpdate();
+            statement.executeUpdate();
             connection.close();
 
         } catch (SQLException | ClassNotFoundException e) {
@@ -32,8 +32,8 @@ public class UserApiRepository implements UserRepository<User> {
     }
 
     @Override
-    public User read(User user) {
-        User newUser = null;
+    public  Optional<User> read(User user) {
+        Optional<User> newUser = Optional.of(new User());
         try (Connection conn = connection.connect()) {
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM user1");
@@ -41,7 +41,10 @@ public class UserApiRepository implements UserRepository<User> {
                 if (resultSet.getString("login").equals(user.getLogin()) && resultSet.getString("password").equals(user.getPassword())) {
                     String login = resultSet.getString("login");
                     String password = resultSet.getString("password");
-                    newUser = new User(login, password);
+                    newUser = Optional.ofNullable(User.builder()
+                            .login(login)
+                            .password(password)
+                            .build());
                     connection.close();
                     return newUser;
                 }
@@ -85,42 +88,45 @@ public class UserApiRepository implements UserRepository<User> {
     }
 
     @Override
-    public List<User> readAllUser() {
-        List<User> users = new ArrayList<>();
+    public List<Optional<User>> readAllUser() {
+        List<Optional<User>> users = new ArrayList<>();
         try (Connection conn = connection.connect()) {
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT*FROM user1");
             while (resultSet.next()) {
                 String login = resultSet.getString("login");
                 String password = resultSet.getString("password");
-                users.add(new User(login, password));
-
-
+                users.add(Optional.ofNullable(User.builder()
+                        .login(login)
+                        .password(password)
+                        .build()));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            logger.info(e);
+        } catch (SQLException | ClassNotFoundException e ) {
+            logger.info("UserApiRepository readAllUser" + e);
         }
         return users;
     }
 
     @Override
-    public User userType(User user) {
-        User newUser = null;
+    public Optional<User> userType(User user) {
+        Optional<User> newUser = Optional.of(new User());
         try (Connection conn = connection.connect()) {
             Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM user1");
             while (resultSet.next()) {
-                if (resultSet.getString("login").equals(user.getLogin()) && resultSet.getString("password").equals(user.getPassword())){
-                    String login = resultSet.getString("login");
-                    String password = resultSet.getString("password");
-                    String userType = resultSet.getString("userType");
-                    newUser = new User(login, password, userType);
-                    System.out.println(newUser);
-                    connection.close();
-                    return newUser;
-                }
+                // if (resultSet.getString("login").equals(user.getLogin()) && resultSet.getString("password").equals(user.getPassword())){
+                String login = resultSet.getString("login");
+                String password = resultSet.getString("password");
+                String userType = resultSet.getString("userType");
+                newUser = Optional.ofNullable(User.builder()
+                        .login(login)
+                        .password(password)
+                        .userType(userType)
+                        .build());
+                logger.info("UserRepositoryReadUser :" + newUser);
+                connection.close();
+                return newUser;
+           // }
             }
         } catch (SQLException | ClassNotFoundException e) {
             logger.info(e);
