@@ -1,10 +1,11 @@
 package by.it.academy.controllrs.shop;
 
-import by.it.academy.entities.Product;
-import by.it.academy.repositories.product.ProductDBRepository;
-import by.it.academy.repositories.product.ProductRepository;
-import by.it.academy.services.product.ProductDBService;
-import by.it.academy.services.product.ProductService;
+import by.it.academy.entities.product.ModelProduct;
+import by.it.academy.entities.product.Product;
+import by.it.academy.repositories.product.ProductAPIRepository;
+import by.it.academy.repositories.product.ProductsRepository;
+import by.it.academy.services.product.ProductAPIService;
+import by.it.academy.services.product.ProductsService;
 import org.apache.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
@@ -22,9 +23,14 @@ import java.util.Objects;
 @WebServlet(urlPatterns = "/readProductAdd")
 public class ByProductController extends HttpServlet {
     private final Logger logger = Logger.getLogger(ByProductController.class);
-    private final List<Product> products = new ArrayList<>();
-    private final ProductRepository<Product> productProductRepositoryRepository = new ProductDBRepository(products);
-    private final ProductService<Product> productProductServiceService = new ProductDBService(productProductRepositoryRepository);
+    private final List<ModelProduct> products = new ArrayList<>();
+//    private final ProductRepository<Product> productProductRepositoryRepository = new ProductDBRepository(products);
+//    private final ProductService<Product> productProductServiceService = new ProductDBService(productProductRepositoryRepository);
+
+private final ProductsRepository<ModelProduct> modelProductRepository
+        = new ProductAPIRepository(products);
+    private  final ProductsService<ModelProduct> modelProductService =
+            new ProductAPIService(modelProductRepository);
     private static final String PRODUCT_LIST_PATH = "/pages/product/List_product.jsp";
 
     @Override
@@ -33,15 +39,14 @@ public class ByProductController extends HttpServlet {
         final String model = req.getParameter("model");
         final String price= req.getParameter("price");
         final int amount = Integer.parseInt(req.getParameter("amount"));
-        final Product productSession = new Product(name, model,price);
+        ModelProduct modelProduct = new ModelProduct(new Product(name),
+                model, Integer.parseInt(price), Integer.parseInt(price));
 
-        Product products = (Product) productProductServiceService.readProduct(productSession);
-        final Product newProduct = new Product(products.getId(), products.getName(), products.getModel(),products.getPrice(), (products.getAmount() - amount));
-        productProductServiceService.updateProduct(products, newProduct);
-
+        ModelProduct product = (ModelProduct) modelProductService.readProduct(modelProduct);
+        ModelProduct modelProducts = new ModelProduct(product.getProduct(), product.getModel(), product.getPrice(), product.getAmount());
             if ((Objects.nonNull(req.getSession())) && Objects.isNull(req.getSession().getAttribute("productRead"))) ;
             HttpSession session = req.getSession();
-            session.setAttribute("productRead", products);
+            session.setAttribute("productRead", modelProducts);
 
             final RequestDispatcher requestDispatcher = req.getRequestDispatcher(PRODUCT_LIST_PATH);
             requestDispatcher.forward(req, resp);

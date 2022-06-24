@@ -18,18 +18,16 @@ public class AuthorisationFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
-        HttpServletRequest request1 = (HttpServletRequest) request;
-        final HttpSession session = request1.getSession();
+        HttpServletRequest requests = (HttpServletRequest) request;
+        final HttpSession session = requests.getSession();
 
         if ((Objects.nonNull(session)) && Objects.nonNull(session.getAttribute("userType"))) {
             Object attribute = session.getAttribute("userType");
 
-
-
             if ("ADMIN".equals(attribute)){
             chain.doFilter(request,response);
         }else {
-            RequestDispatcher requestDispatcher = request1.getRequestDispatcher("/pages/errors/User_error.jsp");
+            RequestDispatcher requestDispatcher = requests.getRequestDispatcher("/pages/errors/User_error.jsp");
             requestDispatcher.forward(request, response);
         }
     }else{

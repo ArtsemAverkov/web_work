@@ -1,23 +1,27 @@
 package by.it.academy.filters;
 
 import by.it.academy.entities.User;
-import by.it.academy.repositories.user.UserApiRepository;
-import by.it.academy.repositories.user.UserRepository;
-import by.it.academy.services.user.UserApiService;
-import by.it.academy.services.user.UserService;
+
+import by.it.academy.repositories.user.UserDBRepository;
+import by.it.academy.repositories.user.UsersRepository;
+import by.it.academy.services.user.UserDBService;
+import by.it.academy.services.user.UsersService;
+import org.apache.log4j.Logger;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 
 @WebFilter(urlPatterns = {"/user/create"})
 public class UniqLoginFilter implements Filter {
+
+    private final Logger logger = Logger.getLogger( UniqLoginFilter.class);
     private final List<User> users = new ArrayList<>();
-    private final UserRepository<User> userUserRepository = new UserApiRepository(users);
-    private final UserService<User> userUserService = new UserApiService(userUserRepository);
+    private final UsersRepository<User> usersRepository = new UserDBRepository(users);
+    private final UsersService<User> usersService = new UserDBService(usersRepository);
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
     }
@@ -27,12 +31,14 @@ public class UniqLoginFilter implements Filter {
         final String login = request.getParameter("login");
         final String password = request.getParameter("password");
         final User user = new User(login, password);
-        final User read = (User) userUserService.read(user);
-        if (Objects.isNull(read)) {
+        final User read = (User) usersService.read(user);
+        
+        Optional<User> reads = Optional.ofNullable(read);
+        if (reads.isPresent()){
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/pages/errors/login_error.jsp");
             requestDispatcher.forward(request, response);
-        }else{
-           chain.doFilter(request,response);
+        }else {
+            chain.doFilter(request,response);
         }
     }
     @Override
