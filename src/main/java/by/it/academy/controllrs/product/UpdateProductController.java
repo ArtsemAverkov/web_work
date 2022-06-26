@@ -31,15 +31,13 @@ public class UpdateProductController extends HttpServlet {
 
     @Override
     protected void doGet (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      final String name = req.getParameter("name");
-      final String model = req.getParameter("model");
-      final int price = Integer.parseInt(req.getParameter("price"));
-      final int amount = Integer.parseInt(req.getParameter("amount"));
+        final Long id = Long.valueOf(req.getParameter("ID"));
+
         final String newName = req.getParameter("newName");
         final String newModel = req.getParameter("newModel");
         final int newPrice = Integer.parseInt(req.getParameter("newPrice"));
         final int newAmount = Integer.parseInt(req.getParameter("newAmount"));
-        ModelProduct modelProduct = new ModelProduct(new Product(name), model, price, amount);
+        ModelProduct modelProduct = new ModelProduct(id);
         ModelProduct newModelProduct = new ModelProduct(new Product(newName), newModel, newPrice, newAmount);
         modelProductService.updateProduct(modelProduct,newModelProduct);
 

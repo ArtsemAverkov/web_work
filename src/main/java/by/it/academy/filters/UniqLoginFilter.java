@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @WebFilter(urlPatterns = {"/user/create"})
@@ -31,10 +32,10 @@ public class UniqLoginFilter implements Filter {
         final String login = request.getParameter("login");
         final String password = request.getParameter("password");
         final User user = new User(login, password);
-        final User read = (User) usersService.read(user);
-        
-        Optional<User> reads = Optional.ofNullable(read);
-        if (reads.isPresent()){
+        List<User> read = usersService.read(user);
+
+        Optional<List<User>> optionalUserList = Optional.ofNullable(read);
+        if (Objects.isNull(optionalUserList)){
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/pages/errors/login_error.jsp");
             requestDispatcher.forward(request, response);
         }else {

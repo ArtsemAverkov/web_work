@@ -1,9 +1,11 @@
 package by.it.academy.services.product;
 
+import by.it.academy.entities.User;
 import by.it.academy.entities.product.ModelProduct;
 import by.it.academy.repositories.product.ProductsRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -38,7 +40,7 @@ public class ProductAPIService implements ProductsService <ModelProduct>{
     }
 
     @Override
-    public  List<List<ModelProduct>> readAllProduct() {
+    public List<List<ModelProduct>> readAllProduct() {
         return  repository.readAllProduct()
                 .stream()
                 .sorted()

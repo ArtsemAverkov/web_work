@@ -30,7 +30,7 @@
 
 <tr>
 <th>id</th>
-<th>name</th>
+<th>product</th>
 <th>model</th>
 <th>price</th>
 <th>amount</th>
@@ -48,8 +48,9 @@
 <td>
 ${product.id}
 </td>
+
 <td>
-${product.name}
+${product.product.name}
 </td>
 
 <td>
@@ -63,6 +64,8 @@ ${product.price}
 <td>
 ${product.amount}
 </td>
+
+
 </tr>
 </c:forEach>
 </tbody>

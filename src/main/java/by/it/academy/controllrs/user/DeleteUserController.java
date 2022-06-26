@@ -30,9 +30,8 @@ public class DeleteUserController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        final String login = req.getParameter("login");
-        final String password = req.getParameter("password");
-        final User user = new User(login, password);
+        final Long id = Long.valueOf(req.getParameter("id"));
+        final User user = new User(id);
         logger.info("DeleteUserController :" + user);
        usersService.delete(user);
 

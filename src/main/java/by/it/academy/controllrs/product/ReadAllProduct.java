@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @WebServlet(urlPatterns = {"/readAllProduct"})
 public class ReadAllProduct extends HttpServlet {
@@ -32,7 +33,12 @@ public class ReadAllProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final RequestDispatcher requestDispatcher = req.getRequestDispatcher(PRODUCT_PAGE);
-        List<List<ModelProduct>> product = modelProductService.readAllProduct();
+        List<List<ModelProduct>> products = modelProductService.readAllProduct();
+        List<ModelProduct> product = products.stream()
+                .flatMap(l -> l.stream())
+                .collect(Collectors.toList());
+        product.forEach(System.out::println);
+
         logger.info("ReadAllProduct :" + product);
          req.setAttribute("products", product);
         requestDispatcher.forward(req,resp);

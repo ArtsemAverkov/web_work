@@ -38,17 +38,21 @@ public class ComeInUserController extends HttpServlet {
 
         final User user = new User(login, password);
         List<User> users = usersService.read(user);// TODO: 23.06.22  user type = null
-        List<User> userList = users.stream()
-                .filter(user1 -> Boolean.parseBoolean(user1.getUserType()))
-                .collect(Collectors.toList());
-        logger.info("ComeInUserController"+ userList);
+
+        String userType = users.stream()
+                .map(User::getUserType)
+                .collect(Collectors.toList())
+                .toString();
+
+
+        logger.info("ComeInUserController"+ userType);
 
 
         if ((Objects.nonNull(req.getSession())) && Objects.isNull(req.getSession().getAttribute("userType"))) ;
         HttpSession session = req.getSession();
-        session.setAttribute("userType",userList);
+        session.setAttribute("userType",userType);
 
-        if ("ADMIN".equals(userList)) {
+        if ("ADMIN".equals(userType)) {
             final RequestDispatcher requestDispatcher = req.getRequestDispatcher(ADMIN_LIST_PATH);
             requestDispatcher.forward(req, resp);
         } else {

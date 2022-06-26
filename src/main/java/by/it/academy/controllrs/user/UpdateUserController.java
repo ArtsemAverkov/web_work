@@ -31,13 +31,12 @@ public class UpdateUserController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        final String login = req.getParameter("login");
-        final String password = req.getParameter("password");
+        final Long id = Long.valueOf(req.getParameter("id"));
 
         final String newLogin = req.getParameter("newLogin");
         final String newPassword = req.getParameter("newPassword");
 
-        final User user = new User(login, password);
+        final User user = new User(id);
         final User newUser = new User(newLogin, newPassword);
 
         usersService.update(user, newUser);

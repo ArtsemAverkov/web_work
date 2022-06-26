@@ -30,8 +30,6 @@ public class DeleteProductController extends HttpServlet {
 
     @Override
     protected void doGet (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        final String name = req.getParameter("name");
-        final String model = req.getParameter("model");
         final Long id = Long.valueOf(req.getParameter("ID"));
         //todo  изменить принимаемый параметр на id
         final ModelProduct modelProduct = new ModelProduct(id);

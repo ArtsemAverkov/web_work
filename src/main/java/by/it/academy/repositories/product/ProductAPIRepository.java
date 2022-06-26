@@ -28,11 +28,11 @@ public class ProductAPIRepository implements ProductsRepository<ModelProduct> {
      */
     public boolean createProduct(ModelProduct modelProduct) {
 
-        @Cleanup EntityManager entityManager = jpa.getEntityManager();
+        EntityManager entityManager = jpa.getEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
-        Query query = entityManager.createQuery("create ModelProduct where Model= :model " +
-                "and Price = :price and Amount= : amount");
+        Query query = entityManager.createQuery("create ModelProduct (Model= :model " +
+                "and Price = :price and Amount= : amount)");
         query.setParameter("Model", modelProduct.getModel());
         query.setParameter("Price", modelProduct.getPrice());
         query.setParameter("Amount", modelProduct.getAmount());
@@ -51,7 +51,7 @@ public class ProductAPIRepository implements ProductsRepository<ModelProduct> {
      * @return resultListModelProduct returns Optional.ofNullable(resultList).
      */
     public  Optional<List<ModelProduct>> readProduct(ModelProduct modelProduct) {
-        @Cleanup EntityManager entityManager = jpa.getEntityManager();
+        EntityManager entityManager = jpa.getEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         Query query = entityManager.createQuery
@@ -73,11 +73,12 @@ public class ProductAPIRepository implements ProductsRepository<ModelProduct> {
      * @return false.
      */
     public boolean updateProduct(ModelProduct modelProduct, ModelProduct newModelProduct) {
-        @Cleanup EntityManager entityManager = jpa.getEntityManager();
+        EntityManager entityManager = jpa.getEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         Query query = entityManager.createQuery("update ModelProduct set Model= :newModel and Price= :newPrice and Amount= :amount where " +
-                "id = :id");// TODO: 23.06.22 update по id
+                "id = :id");
+        query.setParameter("ID", modelProduct.getId());
         query.setParameter("newModel", newModelProduct.getModel());
         query.setParameter("newPrice", newModelProduct.getPrice());
         query.setParameter("newPAmount", newModelProduct.getAmount());
@@ -97,11 +98,11 @@ public class ProductAPIRepository implements ProductsRepository<ModelProduct> {
      * @return false.
      */
     public boolean deleteProduct(ModelProduct modelProduct) {
-        @Cleanup EntityManager entityManager = jpa.getEntityManager();
+        EntityManager entityManager = jpa.getEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         Query query = entityManager.createQuery("delete ModelProduct where id= :id");
-        query.setParameter("id",modelProduct.getId()); // TODO: 25.06.22 Delete по id
+        query.setParameter("id",modelProduct.getId());
         List queryResultList = query.getResultList();
         queryResultList.forEach(System.out::println);
         query.executeUpdate();
@@ -117,13 +118,14 @@ public class ProductAPIRepository implements ProductsRepository<ModelProduct> {
      * @return optionalModelProductList is Optional.ofNullable(resultList).
      */
     public Optional<List<ModelProduct>> readAllProduct() {
-        @Cleanup EntityManager entityManager = jpa.getEntityManager();
+        EntityManager entityManager = jpa.getEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         TypedQuery<ModelProduct> query = entityManager.createQuery
                 ("select m from ModelProduct as m join fetch m.product", ModelProduct.class);
         List<ModelProduct> resultList = query.getResultList();
         Optional<List<ModelProduct>> optionalModelProductList = Optional.ofNullable(resultList);
+        transaction.commit();
         return optionalModelProductList;
     }
 }

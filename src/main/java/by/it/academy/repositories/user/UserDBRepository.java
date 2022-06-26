@@ -27,10 +27,10 @@ public class UserDBRepository implements UsersRepository<User>{
      * @param resultList This is the result of the query in the database
      */
     public void createUser(User user) {
-       @Cleanup EntityManager entityManager = jpa.getEntityManager();
+        EntityManager entityManager = jpa.getEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
-        Query query = entityManager.createQuery("create User where login= :login and password = :password");
+        Query query = entityManager.createQuery("insert into User (login= :login and password = :password)");
         query.setParameter("login", user.getLogin());
         query.setParameter("password", user.getPassword());
         List<User> resultList = query.getResultList();
@@ -62,6 +62,7 @@ public class UserDBRepository implements UsersRepository<User>{
         Optional<List<User>> optionalUserList = Optional.ofNullable(resultList);
         transaction.commit();
 
+
         return optionalUserList;
     }
 
@@ -73,7 +74,7 @@ public class UserDBRepository implements UsersRepository<User>{
      * @return false.
      */
     public boolean deleteUser(User user) {
-        @Cleanup EntityManager entityManager = jpa.getEntityManager();
+       EntityManager entityManager = jpa.getEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         Query query = entityManager.createQuery("delete User where id= :id");
@@ -92,11 +93,12 @@ public class UserDBRepository implements UsersRepository<User>{
      * @return false.
      */
     public boolean updateUser(User user, User newUser) {
-        @Cleanup EntityManager entityManager = jpa.getEntityManager();
+        EntityManager entityManager = jpa.getEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         Query query = entityManager.createQuery("update User set login= :newLogin and password= :newPassword where " +
-                "id = :id"); // TODO: 23.06.22 update по id
+                "id = :id");
+        query.setParameter("id", user.getId());
         query.setParameter("newLogin", newUser.getLogin());
         query.setParameter("newPassword", newUser.getPassword());
 
@@ -114,7 +116,7 @@ public class UserDBRepository implements UsersRepository<User>{
      * @return Optional.ofNullable(resultList).
      */
     public Optional<List<User>> readAllUser() {
-        @Cleanup EntityManager entityManager = jpa.getEntityManager();
+        EntityManager entityManager = jpa.getEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         Query query = entityManager.createQuery("select user from User as user");
