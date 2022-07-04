@@ -1,65 +1,47 @@
 package by.it.academy.controllrs.user;
 
-import by.it.academy.entities.User;
-import by.it.academy.repositories.user.UserDBRepository;
-import by.it.academy.repositories.user.UsersRepository;
-import by.it.academy.services.user.UserDBService;
+import by.it.academy.entities.user.User;
 import by.it.academy.services.user.UsersService;
-import org.apache.log4j.Logger;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import javax.validation.Valid;
+import java.util.*;
 import java.util.stream.Collectors;
 
+@Slf4j
+@RestController
+@RequestMapping("/user/read")
+@RequiredArgsConstructor
+public class ComeInUserController {
+    public final UsersService usersService;
 
-@WebServlet(urlPatterns = {"/user/come_in"})
-public class ComeInUserController extends HttpServlet {
-    private final Logger logger = Logger.getLogger(ComeInUserController.class);
-    private final List<User> users = new ArrayList<>();
-    private final UsersRepository<User> usersRepository = new UserDBRepository(users);
-    private final UsersService<User> usersService = new UserDBService(usersRepository);
-    private static final String USER_LIST_PATH = "/readAllProduct";
-    private static final String ADMIN_LIST_PATH = "/pages/shop/adminShop.jsp";
+    /**
+     * checks if the user exists in the database
+     * @param user get from server
+     * @return the user if there is one and returns the type of the user
+     */
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
+    public String readUser(@RequestBody @Valid User user){
+        Optional<User> read = usersService.read(user);
+        String users = read.toString();
 
+        if (Objects.nonNull(read)){
+            return users;
+        }else {
+            log.info("User not fount");
+        }
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        final String login = req.getParameter("login");
-        final String password = req.getParameter("password");
-
-        final User user = new User(login, password);
-        List<User> users = usersService.read(user);// TODO: 23.06.22  user type = null
-
-        String userType = users.stream()
+        String userType = read.stream()
                 .map(User::getUserType)
+                .flatMap(Collection::stream)
                 .collect(Collectors.toList())
                 .toString();
-
-
-        logger.info("ComeInUserController"+ userType);
-
-
-        if ((Objects.nonNull(req.getSession())) && Objects.isNull(req.getSession().getAttribute("userType"))) ;
-        HttpSession session = req.getSession();
-        session.setAttribute("userType",userType);
-
-        if ("ADMIN".equals(userType)) {
-            final RequestDispatcher requestDispatcher = req.getRequestDispatcher(ADMIN_LIST_PATH);
-            requestDispatcher.forward(req, resp);
-        } else {
-            final RequestDispatcher requestDispatcher = req.getRequestDispatcher(USER_LIST_PATH);
-            requestDispatcher.forward(req, resp);
-
-        }
+        return userType;
     }
 }
 

@@ -1,37 +1,34 @@
 package by.it.academy.controllrs.shopping_cart;
 
-import org.apache.log4j.Logger;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.util.Objects;
 
-@WebServlet(urlPatterns = "/shopping_cart")
-public class ShoppingCartController extends HttpServlet {
-private static final String SHOPPING_CART = "pages/shopping_cart/shopping_cart.jsp";
-    private final Logger logger = Logger.getLogger( ShoppingCartController.class);
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        HttpServletRequest request1 = req;
-        final HttpSession session = request1.getSession();
-
-        if ((Objects.nonNull(session)) && Objects.nonNull(session.getAttribute("productRead"))) {
-            Object product = session.getAttribute("productRead");
+@Slf4j
+@RestController
+@RequestMapping("/getSession")
+@RequiredArgsConstructor
+public class ShoppingCartController {
 
 
-            final RequestDispatcher requestDispatcher = req.getRequestDispatcher(SHOPPING_CART);
-            logger.info("ShoppingCartController" + product);
-            req.setAttribute("products", product);
-            requestDispatcher.forward(req, resp);
-
-
+    /**
+     * displays purchased items
+     * @param session get value from attribute "productRead"
+     * @return set value
+     */
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String setSession (HttpSession session) {
+        String value = (String) session.getAttribute("productRead");
+        if (StringUtils.isEmpty(value)) {
+            log.info("no session");
         }
+        return value;
     }
 }
+

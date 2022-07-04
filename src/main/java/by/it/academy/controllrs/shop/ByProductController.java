@@ -1,56 +1,64 @@
 package by.it.academy.controllrs.shop;
 
-import by.it.academy.entities.product.ModelProduct;
-import by.it.academy.entities.product.Product;
-import by.it.academy.repositories.product.ProductAPIRepository;
-import by.it.academy.repositories.product.ProductsRepository;
-import by.it.academy.services.product.ProductAPIService;
-import by.it.academy.services.product.ProductsService;
-import org.apache.log4j.Logger;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import by.it.academy.entities.product.ModelProduct;
+import by.it.academy.services.product.ProductsService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.Valid;
 import java.util.Objects;
 
-@WebServlet(urlPatterns = "/readProductAdd")
-public class ByProductController extends HttpServlet {
-    private final Logger logger = Logger.getLogger(ByProductController.class);
-    private final List<ModelProduct> products = new ArrayList<>();
-//    private final ProductRepository<Product> productProductRepositoryRepository = new ProductDBRepository(products);
-//    private final ProductService<Product> productProductServiceService = new ProductDBService(productProductRepositoryRepository);
 
-private final ProductsRepository<ModelProduct> modelProductRepository
-        = new ProductAPIRepository(products);
-    private  final ProductsService<ModelProduct> modelProductService =
-            new ProductAPIService(modelProductRepository);
-    private static final String PRODUCT_LIST_PATH = "/pages/product/List_product.jsp";
+@Slf4j
+@RestController
+@RequestMapping("/byProduct")
+@RequiredArgsConstructor
+public class ByProductController  {
+    private final ProductsService productsService;
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        final String name = req.getParameter("name");
-        final String model = req.getParameter("model");
-        final String price= req.getParameter("price");
-        final int amount = Integer.parseInt(req.getParameter("amount"));
-        ModelProduct modelProduct = new ModelProduct(new Product(name),
-                model, Integer.parseInt(price), Integer.parseInt(price));
+    /**
+     * purchase of goods
+     * @param modelProduct  get from server
+     * @param session to set the value of an attribute
+     * @return the selected product
+     * @see  ModelProduct
+     */
+    @PostMapping(consumes =  MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
+    public ModelProduct byProduct (@RequestBody @Valid ModelProduct modelProduct,HttpSession session){
+        ModelProduct readProduct = (ModelProduct) productsService.readProduct(modelProduct);
 
-        ModelProduct product = (ModelProduct) modelProductService.readProduct(modelProduct);
-        ModelProduct modelProducts = new ModelProduct(product.getProduct(), product.getModel(), product.getPrice(), product.getAmount());
-            if ((Objects.nonNull(req.getSession())) && Objects.isNull(req.getSession().getAttribute("productRead"))) ;
-            HttpSession session = req.getSession();
-            session.setAttribute("productRead", modelProducts);
 
-            final RequestDispatcher requestDispatcher = req.getRequestDispatcher(PRODUCT_LIST_PATH);
-            requestDispatcher.forward(req, resp);
-
+        if (Objects.nonNull(readProduct)){
+            ModelProduct build = ModelProduct.builder()
+                    .product(readProduct.getProduct())
+                    .model(readProduct.getModel())
+                    .price(readProduct.getPrice())
+                    .amount(readProduct.getAmount() - modelProduct.getAmount())
+                    .build();
+            boolean updateProduct = productsService.updateProduct(build, readProduct.getId());
+            log.info("updateProduct = " + updateProduct);
+        }else{
+            log.info("product not fount");
         }
+
+
+        if (Objects.nonNull(session)){
+            session.setAttribute("productRead", ModelProduct.builder()
+                    .product(readProduct.getProduct())
+                    .model(readProduct.getModel())
+                    .price(readProduct.getPrice())
+                    .amount(modelProduct.getAmount())
+                    .build());
+        }
+
+
+        return readProduct;
+    }
     }
 

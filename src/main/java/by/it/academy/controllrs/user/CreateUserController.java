@@ -1,45 +1,35 @@
 package by.it.academy.controllrs.user;
 
-import by.it.academy.entities.User;
 
-import by.it.academy.repositories.user.UserDBRepository;
-import by.it.academy.repositories.user.UsersRepository;
-import by.it.academy.services.user.UserDBService;
+import by.it.academy.entities.user.User;
 import by.it.academy.services.user.UsersService;
-import org.apache.log4j.Logger;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.Valid;
+import javax.ws.rs.POST;
+import java.util.UUID;
 
 
-@WebServlet(urlPatterns = "/user/create")
-public class CreateUserController extends HttpServlet {
-    private final Logger logger = Logger.getLogger(CreateUserController.class);
-    private final List<User> users = new ArrayList<>();
+@Slf4j //логер
+@RestController // рес подход когда нету вью нету страниц
+@RequestMapping("/user")
+@RequiredArgsConstructor // конструктор на все final поля
+public class CreateUserController {
+    private final UsersService usersService;
 
-    private final UsersRepository<User> usersRepository = new UserDBRepository(users);
-    private final UsersService<User> usersService = new UserDBService(usersRepository);
-
-    private static final String USER_LIST_PATH = "/pages/shop/userShop.jsp";
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        final String login = req.getParameter("login");
-        final String password = req.getParameter("password");
-        final User user = new User(login, password);
-       logger.info("CreateUserController :" + user);
-       usersService.create(user);
-
-
-        final RequestDispatcher requestDispatcher = req.getRequestDispatcher(USER_LIST_PATH);
-        requestDispatcher.forward(req, resp);
-
+    /**
+     * this method creates a new user
+     * @param user get from server
+     * @return the UUID id of the created user
+     */
+    @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE},
+            produces = MediaType.APPLICATION_JSON_VALUE) //consumes по умолчанию потребляет, produces отдает
+    @ResponseStatus(HttpStatus.CREATED)
+    public UUID createUser(@RequestBody @Valid User user){
+        return usersService.create(user);
     }
 }

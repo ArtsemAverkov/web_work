@@ -6,6 +6,7 @@ import org.hibernate.annotations.OptimisticLocking;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Stream;
 
 @Builder
@@ -20,9 +21,9 @@ import java.util.stream.Stream;
 public class ModelProduct {
 
     @Id
-    @Column(name = "ID")
+    @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private UUID id;
 
     @Column(name = "Model")
     private String model;
@@ -36,39 +37,6 @@ public class ModelProduct {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "product_id")
     private Product product;
-
-    public ModelProduct(Product product, String model, int price) {
-        this.product = product;
-        this.model = model;
-        this.price = price;
-    }
-
-    public ModelProduct(Product product, String model, int price, int amount) {
-        this.model = model;
-        this.price = price;
-        this.amount = amount;
-        this.product = product;
-    }
-
-
-    public ModelProduct(String model, int price, int amount, Product product) {
-        this.model = model;
-        this.price = price;
-        this.amount = amount;
-        this.product = product;
-    }
-
-
-
-    public ModelProduct(Long id) {
-        this.id = id;
-    }
-
-    public ModelProduct(String name, int price, Product product) {
-        this.model = name;
-        this.price = price;
-        this.product = product;
-    }
 
     @Override
     public String toString() {

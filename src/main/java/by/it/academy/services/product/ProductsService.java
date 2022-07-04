@@ -2,15 +2,13 @@ package by.it.academy.services.product;
 
 
 
-import by.it.academy.entities.product.ModelProduct;
-
 import java.util.List;
-import java.util.Optional;
+import java.util.UUID;
 
 public interface ProductsService <ModelProduct>{
-    boolean create(ModelProduct modelProduct);
-    List<List<ModelProduct>> readProduct (ModelProduct modelProduct);
-    boolean updateProduct (ModelProduct modelProduct, ModelProduct newModelProduct);
+    ModelProduct create(ModelProduct modelProduct);
+   ModelProduct readProduct (ModelProduct modelProduct);
+    boolean updateProduct (ModelProduct modelProduct, UUID id);
     boolean deleteProduct (ModelProduct modelProduct);
-    List<List<ModelProduct>> readAllProduct();
+    List<ModelProduct> readAllProduct();
 }
