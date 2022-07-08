@@ -8,6 +8,8 @@ import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.annotations.OptimisticLocking;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.util.Set;
 import java.util.UUID;
 
@@ -27,7 +29,10 @@ public class User {
     private String login;
     @Column(name = "Password")
     private String password;
-   @ManyToMany(cascade = CascadeType.ALL)
+    private String firstName;
+    private String lastName;
+    private String email;
+   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
    @JoinTable(name = "userType", joinColumns = @JoinColumn(name = "userId"),
    inverseJoinColumns = @JoinColumn(name = "typeId"))
     private Set<UserType> userType;

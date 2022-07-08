@@ -12,12 +12,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 public class ShopApplication {
-    /**
-     * this method receives the set value from the
-     * session and returns it as a string
-     * @param session gets attribute "productRead"
-     * @return the received attribute value
-     */
     public static void main(String[] args) {
         SpringApplication.run(ShopApplication.class, args);
     }

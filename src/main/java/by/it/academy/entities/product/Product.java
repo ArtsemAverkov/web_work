@@ -22,7 +22,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Id")
-    private  Long id;
+    private  int id;
 
     @Column(name = "Product_Name")
     private String name;
@@ -30,13 +30,5 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<ModelProduct> modelProductSet = new HashSet<>();
 
-    public Product(String name) {
-        this.name = name;
-    }
-
-    public Product(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
 
 }

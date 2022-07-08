@@ -19,23 +19,26 @@ import java.util.stream.Stream;
 @OptimisticLocking(type = OptimisticLockType.VERSION)
 @Table(name = "Model_Product")
 public class ModelProduct {
-
     @Id
     @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-
     @Column(name = "Model")
     private String model;
-
     @Column(name = "Price")
     private int price;
-
     @Column(name = "Amount")
     private int amount;
+    private String operatingSystem;
+    private String display;
+    private String camera;
+    private String cpu;
+    private String memory;
+    private String description;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Product product;
 
     @Override
