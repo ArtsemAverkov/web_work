@@ -28,24 +28,24 @@ public class UserController {
 
     /**
      * checks if the user exists in the database
-     * @param user get from server
+     * @param id get from server
      * @return the user if there is one and returns the type of the user
      */
-    @RequestMapping("/user/getUser")
-    @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+
+    @GetMapping("{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public User getUser(@RequestBody @Valid User user) {
-        return usersService.getUser(user);
+    public User getUser(@PathVariable UUID id) {
+        return usersService.getUser(id);
     }
 
     /**
      * this method returns a collection of all user in the database
      * @return collection of all users
      */
-    @RequestMapping("/user/readUsers")
+    @RequestMapping("/readUsers")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<User> readAllUser(@PageableDefault(page = 0)
-                                      @SortDefault(sort = "name") Pageable pageable){
+    public List<User> readAllUser(   @PageableDefault(page = 0)
+                                      @SortDefault(sort = "firstName") Pageable pageable){
         return usersService.readUsers(pageable);
     }
 
@@ -64,14 +64,14 @@ public class UserController {
 
     /**
      * this method removes the user from the database
-     * @param user get from server
+     * @param id get from server
      * @return the  boolean of the deleted user
      */
-    @RequestMapping("/delete")
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+
+    @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public boolean deleteUser(@RequestBody @Valid User user){
-        return usersService.deleteUser(user);
+    public boolean deleteUser(@RequestBody @Valid UUID id){
+        return usersService.deleteUser(id);
     }
 
     /**
@@ -80,10 +80,11 @@ public class UserController {
      * @param id get from server
      * @returт successful and unsuccessful update
      */
-    @RequestMapping("/update")
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
-    public boolean updateUser(@RequestBody @Valid User user, UUID id){
+
+    @PatchMapping (consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE, path = "{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public boolean updateUser(@PathVariable  UUID id, @RequestBody @Valid User user){
         return usersService.updateUser(user, id);
     }
 

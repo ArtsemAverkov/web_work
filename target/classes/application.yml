@@ -1,15 +1,8 @@
 spring:
   application:
-    name: product-servise
-  jpa:
-    hibernate:
-      ddl-auto: create
-    database-platform: org.hibernate.dialect.MySQL5Dialect
-    show-sql: true
-  datasource:
-    url: jdbc:mysql://127.0.0.1:3306/user1
-    username: root
-    password: root
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    name: user-api
+  config:
+    import: optional:configserver:http://localhost:8080
 server:
   port: 8890
+

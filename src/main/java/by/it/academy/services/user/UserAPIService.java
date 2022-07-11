@@ -41,14 +41,13 @@ public class UserAPIService implements UsersService {
 
     /**
      * this method counts the user in the database
-     * @param user get from controller
+     * @param id get from controller
      * @return user
      */
     @Override
     @Transactional
-    public User getUser (User user) {
-        UUID id = buildUser(user).getId();
-        return  userRepository.findById(id).get();
+    public User getUser (UUID id) {
+        return  userRepository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
     /**
@@ -60,29 +59,25 @@ public class UserAPIService implements UsersService {
     @Override
     @Transactional
     public boolean updateUser (User user, UUID id ) {
-        UUID idUser = buildUser(user).getId();
-        User userRead = userRepository.findById(idUser).get();
-        if (Objects.nonNull(userRead)){
-            userRead.setLogin(user.getLogin());
-            userRead.setUserType(user.getUserType());
-            userRead.setPassword(user.getPassword());
-            userRepository.save(userRead);
-
+        User users = getUser(id);
+        if (Objects.nonNull(users)){
+            throw  new NoSuchElementException();
         }else {
-            log.info("User not fount");
+            User buildUser = buildUser(user);
+            buildUser.setId(id);
+            userRepository.save(buildUser);
         }
         return false;
     }
 
     /**
      * deleted product by id
-     * @param user get from controller
+     * @param id get from controller
      * @return false
      */
     @Override
     @Transactional
-    public boolean deleteUser (User user) {
-        UUID id = buildUser(user).getId();
+    public boolean deleteUser (UUID id) {
         userRepository.deleteById(id);
          return true;
     }
@@ -94,7 +89,7 @@ public class UserAPIService implements UsersService {
     @Override
     @Transactional
     public List<User> readUsers(Pageable pageable) {
-        return  userRepository.findAll(pageable).getContent();
+        return  userRepository.findAll(pageable).toList();
     }
 
     @Override
