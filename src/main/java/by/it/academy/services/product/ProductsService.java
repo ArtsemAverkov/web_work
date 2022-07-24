@@ -9,15 +9,15 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import java.util.UUID;
 
+
 public interface ProductsService{
-    ModelProduct create(ModelProduct modelProduct);
-   ModelProduct getProduct (ModelProduct modelProduct);
-    boolean updateProduct (ModelProduct modelProduct, UUID id);
-    boolean deleteProduct (ModelProduct modelProduct);
+    Long create(ModelProduct modelProduct);
+    ModelProduct getProduct (Long id);
+    boolean updateProduct (ModelProduct modelProduct, Long id);
+    void deleteProduct (Long id);
     List<ModelProduct> readProducts(Pageable pageable);
 
-    void checkModel(String model);
-
     UUID saveImageForModelProduct(UUID id, MultipartFile image);
+
     byte[] getImageForModelProduct(UUID id);
 }

@@ -29,47 +29,47 @@ public class ProductController {
      * @param modelProduct get from server
      * @return the UUID id of the created product
      */
-    @RequestMapping("/insert")
-    @PostMapping(name = "product/create",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public ModelProduct createProduct(@RequestBody @Valid ModelProduct modelProduct){
+    public Long createProduct(@RequestBody @Valid ModelProduct modelProduct){
         return productsService.create(modelProduct);
     }
 
     /**
      * this method removes the product from the database
-     * @param modelProduct get from server
-     * @return the  boolean of the deleted product
-     */
-    @RequestMapping("/delete")
-    @PostMapping(consumes =  MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
-    public boolean deleteProduct(@RequestBody @Valid ModelProduct modelProduct){
-        return productsService.deleteProduct(modelProduct);
+     * @param id get from server
 
+     */
+
+    @DeleteMapping(path = "{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteProduct(@PathVariable Long id){
+        productsService.deleteProduct(id);
     }
 
     /**
      * this method returns a collection of all products in the database
      * @return collection of all products
      */
-    @RequestMapping("/readProducts")
+
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    private final List<ModelProduct> readProducts(@PageableDefault(page = 0)
+    public List<ModelProduct> readProducts(@PageableDefault(page = 0)
                                                         @SortDefault(sort = "name") Pageable pageable){
         return productsService.readProducts(pageable);
     }
 
     /**
      * this method searches the user database
-     * @param modelProduct get from server
+     * @param id get from server
      * @return product
      */
-    @RequestMapping("/getProduct")
-    @GetMapping(consumes =  MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
-    public ModelProduct getProduct (@RequestBody @Valid ModelProduct modelProduct){
-        return productsService.getProduct(modelProduct);
+
+    @GetMapping("{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ModelProduct getProduct (@PathVariable Long id){
+        return productsService.getProduct(id);
     }
 
     /**
@@ -78,28 +78,38 @@ public class ProductController {
      * @param id get from server
      * @returт successful and unsuccessful update
      */
-    @RequestMapping("/update")
-    @PostMapping(consumes =  MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
-    public boolean updateProduct(@RequestBody @Valid ModelProduct modelProduct, UUID id){
+
+    @PatchMapping(consumes =  MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            path = "{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public boolean updateProduct(@PathVariable Long id, @RequestBody @Valid ModelProduct modelProduct){
         return productsService.updateProduct(modelProduct, id);
     }
 
 
+    /**
+     * this method save image for modelProduct by id
+     * @param modelProductId get from server
+     * @param image get from local
+     * @returт successful and unsuccessful save
+     */
     @PostMapping("{modelProductId}/imageForModelProduct")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public UUID  saveImageForModelProduct(@PathVariable UUID modelProductId,
+    public UUID saveImageForModelProduct(@PathVariable UUID modelProductId,
                                           @RequestBody @NonNull MultipartFile image){
         return productsService.saveImageForModelProduct(modelProductId, image);
     }
 
+
+    /**
+     * this method updates modelProduct by id
+     * @param modelProductId get from server
+     * @returт successful and unsuccessful getImage
+     */
     @GetMapping(value = "{modelProductId}/imageForModelProduct", produces = MediaType.IMAGE_PNG_VALUE)
     public  byte[] getImageForModelProduct(@PathVariable UUID modelProductId){
         return productsService.getImageForModelProduct(modelProductId);
-    }
-    @RequestMapping(method = RequestMethod.HEAD)
-    public void checkModelProductExist(@RequestParam String model){
-    productsService.checkModel(model);
     }
 
 }

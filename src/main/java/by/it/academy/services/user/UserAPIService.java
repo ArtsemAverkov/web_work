@@ -33,7 +33,7 @@ public class UserAPIService implements UsersService {
      */
     @Override
     @Transactional
-    public UUID createUser (User user) {
+    public Long createUser (User user) {
         final User buildUser = buildUser(user);
         return userRepository.save(buildUser).getId();
 
@@ -45,8 +45,8 @@ public class UserAPIService implements UsersService {
      * @return user
      */
     @Override
-    @Transactional
-    public User getUser (UUID id) {
+
+    public User getUser (Long id) {
         return  userRepository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
@@ -58,7 +58,7 @@ public class UserAPIService implements UsersService {
      */
     @Override
     @Transactional
-    public boolean updateUser (User user, UUID id ) {
+    public boolean updateUser (User user, Long id ) {
         User users = getUser(id);
         if (Objects.nonNull(users)){
             throw  new NoSuchElementException();
@@ -77,9 +77,9 @@ public class UserAPIService implements UsersService {
      */
     @Override
     @Transactional
-    public boolean deleteUser (UUID id) {
+    public void deleteUser (Long id) {
         userRepository.deleteById(id);
-         return true;
+
     }
 
     /**
@@ -92,27 +92,42 @@ public class UserAPIService implements UsersService {
         return  userRepository.findAll(pageable).toList();
     }
 
+    /**
+     *this method login uniqueness check
+     * @param login get from controller
+     */
     @Override
     public void checkLogin(String login) {
-        boolean usersLogin = userRepository.existActiveLogin(login);
-        if(usersLogin){
+        int usersLogin = userRepository.existActiveLogin(login);
+        if(Objects.nonNull(usersLogin)){
             log.warn("login is exists");
         }else{
             log.info("login does not exist");
         }
     }
 
+    /**
+     *this method email uniqueness check
+     * @param email get from controller
+     * @return 0
+     */
     @Override
     @Transactional
-    public void existsUserEmail(String email) {
-        boolean existsUserEmail = userRepository.existActiveEmail(email);
-        if (existsUserEmail){
+    public int existsUserEmail(String email) {
+      int existsUserEmail = userRepository.existActiveEmail(email);
+        if (Objects.nonNull(existsUserEmail)){
             log.warn("email is exists");
         }else{
             log.info("email does not exists");
         }
+        return 0;
     }
 
+    /**
+     * this method save avatar for user by id
+     * @param id get from controller
+     * @return id user
+     */
     @SneakyThrows// в аннотацию прячет все exception
     @Override
     @Transactional
@@ -120,6 +135,11 @@ public class UserAPIService implements UsersService {
         return avatarRepository.save(new Avatar(id, image.getBytes())).getId();
     }
 
+    /**
+     * this method get avatar for user by id
+     * @param id get from controller
+     * @return get image
+     */
     @Override
     @Transactional
     public byte[] getAvatar(UUID id) {

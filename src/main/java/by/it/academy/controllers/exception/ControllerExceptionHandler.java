@@ -15,13 +15,13 @@ public class ControllerExceptionHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseError  handlerEntityNotFountException(EntityNotFoundException e){
+    public ResponseError  handlerEntityNotFountException (EntityNotFoundException e){
         log.info(e.toString());
-        return new ResponseError("", e.toString());
+        return new ResponseError("INCORRECT REQUEST", e.toString());// todo rename, message
     }
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(RuntimeException.class)
-    private ResponseError error(RuntimeException ex) {
-        return new ResponseError("", ex.toString());
+    private ResponseError serverErrorRuntime (RuntimeException ex) { //todo rename
+        return new ResponseError("INTERNAL SERVER ERROR", ex.toString());
     }
 }

@@ -23,8 +23,62 @@
     <spring-cloud.version>2021.0.3</spring-cloud.version>
   </properties>
 
+<dependencies>
+  <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+  <dependency>
+    <groupId>com.google.code.gson</groupId>
+    <artifactId>gson</artifactId>
+    <version>2.9.0</version>
+  </dependency>
 
-  <dependencies>
+
+
+  <!-- https://mvnrepository.com/artifact/org.testcontainers/mysql -->
+  <dependency>
+    <groupId>org.testcontainers</groupId>
+    <artifactId>mysql</artifactId>
+    <version>1.17.3</version>
+    <scope>test</scope>
+  </dependency>
+
+
+
+
+  <!-- https://mvnrepository.com/artifact/org.testcontainers/junit-jupiter -->
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>1.17.3</version>
+      <scope>test</scope>
+    </dependency>
+
+
+
+    <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-runner -->
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-runner</artifactId>
+      <version>1.9.0-RC1</version>
+      <scope>test</scope>
+    </dependency>
+
+
+    <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-suite-api -->
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-suite-api</artifactId>
+      <version>1.9.0-RC1</version>
+      <scope>test</scope>
+    </dependency>
+
+
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>5.4.0</version>
+      <scope>test</scope>
+    </dependency>
+
     <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-config -->
     <dependency>
       <groupId>org.springframework.cloud</groupId>
@@ -101,10 +155,18 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
-      <version>2.7.0</version>
       <scope>test</scope>
     </dependency>
-  </dependencies>
+
+  <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+  <dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-lang3</artifactId>
+    <version>3.0</version>
+  </dependency>
+
+
+</dependencies>
   <build>
     <finalName>web_work</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->

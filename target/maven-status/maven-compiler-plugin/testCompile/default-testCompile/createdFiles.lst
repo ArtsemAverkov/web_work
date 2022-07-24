@@ -1,0 +1,14 @@
+by/it/academy/testingTools/common/extensions/user/ValidUserParameterResolver.class
+by/it/academy/testingTools/common/extensions/product/ValidProductParameterResolver.class
+by/it/academy/testingTools/common/extensions/user/InvalidParameterResolver.class
+by/it/academy/testingTools/common/controllers/UserServiceImplTest$InvalidData.class
+by/it/academy/testingTools/common/controllers/UserControllerTest.class
+by/it/academy/testingTools/common/extensions/product/InvalidProductParameterResolver.class
+by/it/academy/testingTools/common/jsonPath/ProductControllerTest.class
+by/it/academy/testingTools/common/controllers/UserServiceImplTest.class
+by/it/academy/testingTools/common/junit/AcceptedMediaTypesTest.class
+by/it/academy/testingTools/common/controllers/UserServiceImplTest$ValidData.class
+by/it/academy/testingTools/common/jsonPath/UserControllerTest.class
+by/it/academy/testingTools/common/repository/UserMySQLRepositoryTest.class
+by/it/academy/testingTools/common/mockito/UserServiceImplTest.class
+by/it/academy/testingTools/common/junit/AllUnitTeat.class

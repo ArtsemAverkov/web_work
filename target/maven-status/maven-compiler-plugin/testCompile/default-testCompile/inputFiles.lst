@@ -1,0 +1,12 @@
+/Users/artemaverkov/web_work/src/test/java/by/it/academy/testingTools/common/extensions/product/InvalidProductParameterResolver.java
+/Users/artemaverkov/web_work/src/test/java/by/it/academy/testingTools/common/extensions/user/ValidUserParameterResolver.java
+/Users/artemaverkov/web_work/src/test/java/by/it/academy/testingTools/common/mockito/UserServiceImplTest.java
+/Users/artemaverkov/web_work/src/test/java/by/it/academy/testingTools/common/controllers/UserServiceImplTest.java
+/Users/artemaverkov/web_work/src/test/java/by/it/academy/testingTools/common/jsonPath/UserControllerTest.java
+/Users/artemaverkov/web_work/src/test/java/by/it/academy/testingTools/common/controllers/UserControllerTest.java
+/Users/artemaverkov/web_work/src/test/java/by/it/academy/testingTools/common/jsonPath/ProductControllerTest.java
+/Users/artemaverkov/web_work/src/test/java/by/it/academy/testingTools/common/extensions/product/ValidProductParameterResolver.java
+/Users/artemaverkov/web_work/src/test/java/by/it/academy/testingTools/common/junit/AllUnitTeat.java
+/Users/artemaverkov/web_work/src/test/java/by/it/academy/testingTools/common/junit/AcceptedMediaTypesTest.java
+/Users/artemaverkov/web_work/src/test/java/by/it/academy/testingTools/common/repository/UserMySQLRepositoryTest.java
+/Users/artemaverkov/web_work/src/test/java/by/it/academy/testingTools/common/extensions/user/InvalidParameterResolver.java

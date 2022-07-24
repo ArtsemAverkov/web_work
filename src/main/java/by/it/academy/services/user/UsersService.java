@@ -9,14 +9,14 @@ import java.util.List;
 import java.util.UUID;
 
 public interface UsersService{
-    UUID createUser (User user);
-    User getUser (UUID id);
-    boolean updateUser (User user, UUID id);
-    boolean deleteUser (UUID id);
+    Long createUser (User user);
+    User getUser (Long id);
+    boolean updateUser (User user, Long id);
+    void deleteUser (Long id);
     List<User> readUsers(Pageable pageable);
 
     void checkLogin(String login);
-    void existsUserEmail(String email);
+    int existsUserEmail(String email);
 
     UUID saveAvatar(UUID id, MultipartFile image);
     byte[] getAvatar(UUID id);

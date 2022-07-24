@@ -3,6 +3,7 @@ package by.it.academy.aop;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.CodeSignature;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -11,6 +12,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
+@Component
 public class BaseAspect {
     public static final String ARGS = "ARGUMENT is";
     public static final String RESULT = "RESULT is";

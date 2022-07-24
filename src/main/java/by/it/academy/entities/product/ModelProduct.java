@@ -5,29 +5,22 @@ import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.annotations.OptimisticLocking;
 
 import javax.persistence.*;
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.Stream;
 
 @Builder
 @Data
-@ToString(exclude = "product")
+@ToString()
 @EqualsAndHashCode(exclude = "product")
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @OptimisticLocking(type = OptimisticLockType.VERSION)
-@Table(name = "Model_Product")
+@Table(name = "model_Product")
 public class ModelProduct {
     @Id
-    @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
-    @Column(name = "Model")
+    private Long id;
     private String model;
-    @Column(name = "Price")
     private int price;
-    @Column(name = "Amount")
     private int amount;
     private String operatingSystem;
     private String display;
@@ -37,18 +30,9 @@ public class ModelProduct {
     private String description;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @JoinColumn(name = "product_id", nullable = false)
+    @ToString.Exclude
     private Product product;
 
-    @Override
-    public String toString() {
-        return "ModelProduct{" +
-                "id=" + id +
-                ", model='" + model + '\'' +
-                ", price=" + price +
-                ", amount=" + amount +
-                ", product=" + product +
-                '}';
-    }
+
 }

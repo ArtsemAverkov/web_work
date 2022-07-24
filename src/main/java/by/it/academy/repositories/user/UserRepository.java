@@ -1,20 +1,19 @@
 package by.it.academy.repositories.user;
 
 import by.it.academy.entities.user.User;
-import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import java.util.UUID;
 
-public interface UserRepository extends JpaRepository<User, UUID> {
+
+public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "select count(login) from users where login =: login", nativeQuery = true)
-    boolean existActiveLogin(String login);
-    //boolean existsUsersLogin(String login);
+    int existActiveLogin(String login);
 
-    @Query(value = "select count(login) from users where email =: email", nativeQuery = true)
-    boolean existActiveEmail(String email);
-   // boolean existsUserEmail(String email);
+
+    @Query(value = "select count(email) from users where email =: email", nativeQuery = true)
+    int existActiveEmail(String email);
+
 
 
 

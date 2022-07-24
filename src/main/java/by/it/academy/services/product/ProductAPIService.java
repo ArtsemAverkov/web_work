@@ -17,7 +17,6 @@ import java.util.*;
 
 @Slf4j
 @Service
-@Scope("prototype")
 @RequiredArgsConstructor
 public class ProductAPIService implements ProductsService{
   private final ProductRepository productRepository;
@@ -30,21 +29,20 @@ public class ProductAPIService implements ProductsService{
      */
     @Override
     @Transactional
-    public ModelProduct create(ModelProduct modelProduct) {
+    public Long create(ModelProduct modelProduct) {
         ModelProduct buildProduct = buildProduct(modelProduct);
-        return productRepository.save(buildProduct);
+        return productRepository.save(buildProduct).getId();
     }
 
     /**
      * this method counts the product in the database
-     * @param modelProduct get from controller
+     * @param id get from controller
      * @return product
      */
     @Override
     @Transactional
-    public ModelProduct getProduct(ModelProduct modelProduct) {
-        UUID id = buildProduct(modelProduct).getId();
-        return productRepository.findById(id).get();
+    public ModelProduct getProduct(Long id) {
+        return productRepository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
     /**
@@ -55,32 +53,27 @@ public class ProductAPIService implements ProductsService{
      */
     @Override
     @Transactional
-    public boolean updateProduct(ModelProduct modelProduct, UUID id) {
-        UUID idProduct = buildProduct(modelProduct).getId();
-        ModelProduct product = productRepository.findById(idProduct).get();
+    public boolean updateProduct(ModelProduct modelProduct, Long id) {
+        ModelProduct product = getProduct(id);
         if (Objects.nonNull(product)){
-            product.setProduct(modelProduct.getProduct());
-            product.setModel(modelProduct.getModel());
-            product.setPrice(modelProduct.getPrice());
-            product.setAmount(modelProduct.getAmount());
-            productRepository.save(product);
-        }else {
-            log.info("Product not fount");
+            ModelProduct buildProducts = buildProduct(modelProduct);
+           buildProducts.setId(id);
+           productRepository.save(buildProducts);
+
         }
         return false;
     }
 
     /**
      * deleted product by id
-     * @param modelProduct get from controller
+     * @param id get from controller
      * @return false
      */
     @Override
     @Transactional
-    public boolean deleteProduct(ModelProduct modelProduct) {
-        UUID idProduct = buildProduct(modelProduct).getId();
-        productRepository.deleteById(idProduct);
-        return true;
+    public void deleteProduct(Long id) {
+        productRepository.deleteById(id);
+
     }
 
     /**
@@ -90,20 +83,15 @@ public class ProductAPIService implements ProductsService{
     @Override
     @Transactional
     public List<ModelProduct> readProducts(Pageable pageable) {
-        return productRepository.findAll(pageable).getContent();
+        return productRepository.findAll(pageable).toList();
     }
 
-    @Override
-    @Transactional
-    public void checkModel(String model) {
-        boolean productModel = productRepository.existModelProduct(model);
-        if (productModel){
-            log.warn("ModelProduct is exist");
-        }else {
-            log.info("login does not exist");
-        }
-
-    }
+    /**
+     * deleted save image for product by id
+     * @param id get from controller
+     * @param image get from local
+     * @return id dor image
+     */
     @SneakyThrows
     @Override
     @Transactional
@@ -111,6 +99,11 @@ public class ProductAPIService implements ProductsService{
         return imageForModelProductRepository.save(new ImageForModelProduct(id, image.getBytes())).getId() ;
     }
 
+    /**
+     * deleted get image for product by id
+     * @param id get from controller
+     * @return image from Postman
+     */
     @Override
     @Transactional
     public byte[] getImageForModelProduct(UUID id) {
@@ -136,7 +129,4 @@ public class ProductAPIService implements ProductsService{
                 .amount(modelProduct.getAmount())
                 .build();
     }
-
-
-
 }

@@ -8,10 +8,8 @@ import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.annotations.OptimisticLocking;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import java.util.Set;
-import java.util.UUID;
+
 
 @Data
 @Builder
@@ -20,11 +18,11 @@ import java.util.UUID;
 @Table(name = "Users")
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class  User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Id")
-    private UUID id;
+    private Long id;
     @Column(name = "Login")
     private String login;
     @Column(name = "Password")

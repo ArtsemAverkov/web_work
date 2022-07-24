@@ -30,5 +30,8 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<ModelProduct> modelProductSet = new HashSet<>();
 
-
+    public Product(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }
